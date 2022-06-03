@@ -8,3 +8,6 @@ thesis/thesis.toc
 thesis/thesis.xmpdata
 thesis/thesis.bbl
 thesis/thesis.blg
+
+code/env
+code/.ipynb_checkpoints
