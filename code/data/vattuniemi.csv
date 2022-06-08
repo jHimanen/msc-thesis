@@ -1,0 +1,14 @@
+Address,Type,Year,Area,Volume,Load_bearing_material,Facade_material,Storeys,Elevator,Sewer,Water_pipes,Concrete
+heikkilantie 2,office,1988,9590,32400,concrete,brick,6,1,1,1,4500
+heikkilantie 7,office,1988,15918,53570,steel,other,5,1,1,1,2200
+heikkilantie 8,office,1966,2156,6689,concrete,concrete,3,0,1,1,2400
+heikkilantie 10,office,1972,2135,6461,concrete,unknown,3,0,1,1,2800
+italahdenkatu 15-17,office,1992,12300,42450,concrete,other,5,1,1,1,4935
+italahdenkatu 18a,office,1991,12287,53168,steel,concrete,6,1,1,1,2480
+italahdenkatu 20,other industrial,1965,3512,10650,concrete,unknown,3,1,1,1,6000
+italahdenkatu 22a,other industrial,1974,13843,51276,concrete,metal plate,4,1,1,1,7691
+italahdenkatu 22b,office,1974,9045,32544,concrete,unknown,3,1,1,1,6480
+italahdenkatu 25,storage,1983,8651,34590,concrete,brick,5,1,1,1,4165
+italahdenkatu 27,office,1962,19814,77759,concrete,brick,5,1,1,1,15000
+vattuniemenranta 2,other industrial,1955,6815,25630,concrete,other,5,1,1,1,9500
+wavulinintie 6,other industrial,1956,4065,14018,concrete,unknown,2,0,1,1,5600
