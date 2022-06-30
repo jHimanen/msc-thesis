@@ -1,14 +1,17 @@
-Address,Type,Year,Area,Volume,Load_bearing_material,Facade_material,Storeys,Elevator,Sewer,Water_pipes,Concrete
-heikkilantie 2,office,1988,9590,32400,concrete,brick,6,1,1,1,4500
-heikkilantie 7,office,1988,15918,53570,steel,other,5,1,1,1,2200
-heikkilantie 8,office,1966,2156,6689,concrete,concrete,3,0,1,1,2400
-heikkilantie 10,office,1972,2135,6461,concrete,unknown,3,0,1,1,2800
-italahdenkatu 15-17,office,1992,12300,42450,concrete,other,5,1,1,1,4935
-italahdenkatu 18a,office,1991,12287,53168,steel,concrete,6,1,1,1,2480
-italahdenkatu 20,other industrial,1965,3512,10650,concrete,unknown,3,1,1,1,6000
-italahdenkatu 22a,other industrial,1974,13843,51276,concrete,metal plate,4,1,1,1,7691
-italahdenkatu 22b,office,1974,9045,32544,concrete,unknown,3,1,1,1,6480
-italahdenkatu 25,storage,1983,8651,34590,concrete,brick,5,1,1,1,4165
-italahdenkatu 27,office,1962,19814,77759,concrete,brick,5,1,1,1,15000
-vattuniemenranta 2,other industrial,1955,6815,25630,concrete,other,5,1,1,1,9500
-wavulinintie 6,other industrial,1956,4065,14018,concrete,unknown,2,0,1,1,5600
+Address,Type,Year,Area,Volume,Load_bearing_material,Facade_material,Storeys,Elevator,Sewer,Water_pipes,Concrete,Mineral_wool,Metal,Glass
+heikkilantie 2,office,1988,9590,32400,concrete,brick,6,1,1,1,9028.1,20.5,214,25.1
+heikkilantie 7,office,1988,15918,53570,steel,other,5,1,1,1,16000,37.5,967,20
+heikkilantie 8,office,1966,2156,6689,concrete,concrete,3,0,1,1,2400,8.5,72,12
+heikkilantie 10,office,1972,2135,6461,concrete,unknown,3,0,1,1,2800,9,84,14
+italahdenkatu 15-17,office,1992,12300,42450,concrete,other,5,1,1,1,15950,100,663,100
+italahdenkatu 18a,office,1991,12287,53168,concrete,concrete,6,1,1,1,14830,50,608,60
+italahdenkatu 19,office,1978,12472,40128,concrete,unknown,5,1,1,1,20000,50,1000,10
+italahdenkatu 20,other industrial,1965,3512,10650,concrete,unknown,3,1,1,1,8740,56,352,25
+italahdenkatu 22a,other industrial,1974,13843,51276,concrete,metal plate,4,1,1,1,27160,100,1100,48
+italahdenkatu 22b,office,1974,9045,32544,concrete,unknown,3,1,1,1,15900,70,658,40
+italahdenkatu 23,storage,1952,7897,27385,concrete,unknown,5,1,1,1,12700,4.3,381,4.7
+italahdenkatu 25,storage,1983,8651,34590,concrete,brick,5,1,1,1,24900,110,1005,25
+italahdenkatu 27,office,1962,19814,77759,concrete,brick,5,1,1,1,15000,45,900,65
+vattuniemenranta 2,other industrial,1955,6815,25630,concrete,other,5,1,1,1,9500,0,337,0
+melkonkatu 16,office,1955,6012,19693,concrete,concrete,5,1,1,1,7016,16,166,19
+wavulinintie 6,other industrial,1956,4065,14018,concrete,unknown,2,0,1,1,5600,7,100,4
