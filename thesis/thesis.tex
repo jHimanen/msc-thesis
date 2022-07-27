@@ -31,7 +31,8 @@
 \usepackage{graphicx}
 
 %% Math fonts, symbols, and formatting; these are usually needed
-\usepackage{amsfonts,amssymb,amsbsy,amsmath}
+\usepackage{amsfonts,amssymb,amsbsy,amsmath,dsfont}
+\usepackage{algorithm,algpseudocode}
 
 %% Change the school field to specify your school if the automatically set name
 %% is wrong
@@ -263,6 +264,7 @@ Otaniemi, 31.12.2022
 
 \begin{tabular}{ll}
   \textbf{API} & application programming interface \\
+  \textbf{BLR} & Bayesian linear regression        \\
   \textbf{CE}  & circular economy                  \\
   \textbf{GBC} & Green Building Council            \\
   \textbf{GHG} & greenhouse gas                    \\
@@ -427,15 +429,121 @@ to the ways of data aggregation on a more detailed level, and explore the possib
 
 \clearpage
 
-\section{Model and methods}
+\section{The Models}
+
+This chapter introduces two distinct modeling approaches, the random forest regressor and Bayesian linear regression (BLR), to predict demolition material streams using initial knowledge of the target
+building. It is imperative to note, that these models are only a proof of concept - they are meant to demonstrate that given proper data, it is possible to use various machine learning algorithms
+to make feasible predictions on different material streams, and thus support the pre-demolition audit process. Hence, these models as such should not be relied on in actual cases.
 
 % Contribution: 20\%
 % Order of work: 2/6
 
-\subsection{Data}
-\subsection{Features}
-\subsection{Prediction targets}
-\subsection{Modeling approach and algorithms}
+\subsection{On notation}
+
+Before applying the models on actual data in section \ref{data}, we will consider a general supervised learning setting with a dataset
+$\mathcal{D} = \{\textbf{z}_1,\hspace{1mm} \textbf{z}_2,\hspace{1mm} \ldots\hspace{1mm},\hspace{1mm} \textbf{z}_m \}$, where a vector $\textbf{z}_i$ denotes a data point consisting
+of features and labels, and $m$ is the size of the dataset. The feature space $\mathcal{X}$ encloses all possible feature values, and similarly, the label space $\mathcal{Y}$ is the space
+of all possible label values. In the case of $\mathcal{Y}$ being discrete, we talk about classification problems. In the problem setting of this thesis however, we have $\mathcal{Y} = \mathbb{R}$,
+which implies a regression problem.
+
+Let $n$ be the number of features in the dataset. The feature vector \\ $\textbf{x} = [x_1,\hspace{1mm} x_2,\hspace{1mm} \ldots\hspace{1mm},\hspace{1mm} x_n]$ contains
+all feature values for a single data point. It is often useful to represent all feature vectors in a $m \times n$ matrix
+%
+\begin{equation*}
+  \textbf{X}=
+  \begin{bmatrix}
+    \textbf{x}_1 \\
+    \textbf{x}_2 \\
+    \vdots       \\
+    \textbf{x}_m \\
+  \end{bmatrix}.
+\end{equation*}
+%
+The label of the $i$th data point is denoted by $y_i$, and by extension, all labels in the dataset are represented in the label vector
+$\textbf{y} = [y_1,\hspace{1mm} y_2,\hspace{1mm} \ldots\hspace{1mm},\hspace{1mm} y_m]^T$. In the scope of this thesis, we will only consider a single label at a time in order to avoid higher
+dimensional label matrices.
+
+\subsection{Random forest regression}
+
+Introduced by Breiman (2001)~\cite{breiman}, the random forest is a supervised ensemble learning method, that is made up by of a group of decision trees. Decision trees and random forests have
+remained a popular modeling approach because they imitate human reasoning and decision making, and are thus conseptually intuitive. They can be used for classification and regression tasks alike,
+but we will focus on the latter because of the nature of our problem setting.
+
+\subsubsection{Decision trees}
+
+A decision tree regressor is a predictor that maps features to the label space by essentially going through a series of if-else-statements. Each of these decision statements checks,
+whether or not a specific subset of features fills the decision criteria. This is done until the process arrives at a prediction. It is conventional to represent decision trees as graphs,
+that start at the top with a (root) decision node, and continue down to further decision nodes, until arriving at a leaf node. Here the decision nodes represent the if-else-clauses,
+and leaf nodes the predictions. A simple example of such a decision tree for three-dimensional data $\textbf{z}_i = [x^{(i)}_1,\hspace{1mm} x^{(i)}_2,\hspace{1mm} y^{(i)}]$ is
+depicted in Figure \ref{fig:dt_example}.
+%
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/dt_example.jpg}
+  \caption{\label{fig:dt_example}A graph representation of a simple decision tree.}
+\end{figure}
+%
+This tree shatters a training dataset into four subsets, one for each leaf node. It achieves this by taking one data point at a time, starting at the root node, and choosing the next
+edge to traverse based on whether the decision statement of the node is true or false in the case of the feature vector in question. If the chosen edge leads to a leaf node, the tree
+starts to process the next data point. If the next node is a decision node, the decision process is repeated. A new prediction is made similarly by passing
+the new feature vector through the decision nodes, until it lands on a leaf node. The predicted label is then given a value equal to, for example, the mean of the training labels in
+the subset associated with that leaf node.
+
+An obvious point of interest remains the question of how to grow an optimal decision tree. There are several possibilities to do this, but we will consider a variant of the ID3
+(Iterative Dichotomizer 3) algorithm~\cite{quinlan} (Algorithm \ref{alg:id3}), designed to handle regression problems.
+The algorithm starts with a training set $\mathcal{D}$ and a root node. It then proceeds to recursively build the two subtrees sprouting from the root node, until maximum tree depth $k$ is reached,
+or the size of the resulting subset is small enough ($<l$).
+
+The final question to be cleared is the problem of finding the best possible splitting rule, or decision statement, at each decision node. Generally, the metric for the "goodness" of a split
+is called the \textit{Gain}. Again, there are multiple possibilites when it comes to choosing a Gain function~\cite{shalev-shwartz}, but our choice will be \textit{variance reduction}.
+
+Let $\mathcal{D}_0$ be the dataset at the current node, and $\mathcal{D}_i, \mathcal{D}_j$ be its split, such that $\mathcal{D}_i \cap \mathcal{D}_j = \varnothing$
+and $\mathcal{D}_i \cup \mathcal{D}_j = \mathcal{D}_0$. With $\mathcal{Y}$ denoting the set of labels, we can define the (weighted) variance reduction as
+%
+\begin{equation}
+  \Delta\sigma^2 = \text{Var}(\mathcal{Y}_0) - \left(\frac{|\mathcal{D}_i|}{|\mathcal{D}_0|}\text{Var}(\mathcal{Y}_i) + \frac{|\mathcal{D}_j|}{|\mathcal{D}_0|}\text{Var}(\mathcal{Y}_j)\right).
+\end{equation}
+%
+The algorithm goes through every possible split and finally chooses
+%
+\begin{equation*}
+  \mathcal{D}_1, \mathcal{D}_2 = \arg \max_{\mathcal{D}_j, \mathcal{D}_j}\Delta\sigma^2
+\end{equation*}
+%
+to be the respective subsets for the next nodes.
+
+It is worth to mention, that letting the tree grow arbitrarily large results in an infinitely large Vapnik-Chervonenkis dimension for the model, and consequently in unacceptably
+severe overfitting.~\cite{shalev-shwartz}
+%
+\begin{algorithm}
+  \caption{ID3 variant for regression}\label{alg:id3}
+  \begin{algorithmic}[1]
+    \State max\_depth $\gets k$
+    \State min\_samples $\gets l$
+    \Procedure{ID3}{$\mathcal{D},$ current\_depth $=0$}
+    \State nr\_samples $\gets |\mathcal{D}|$
+    \If{current\_depth $<$ max\_depth $\And$ nr\_samples $>$ min\_samples}
+    \State $\mathcal{D}_1, \mathcal{D}_2 \gets \arg \max_{\mathcal{D}_i, \mathcal{D}_j}$ Gain($\mathcal{D}, \mathcal{D}_i, \mathcal{D}_j$)
+    \State $T_L \gets$ ID3($\mathcal{D}_1$, current\_depth $+1$)
+    \State $T_R \gets$ ID3($\mathcal{D}_2$, current\_depth $+1$)
+    \State \Return Decision node with left and right subtrees $T_L$ and $T_R$
+    \Else
+    \State \Return Leaf node with set $\mathcal{D}$
+    \EndIf
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+%
+Therefore, it is critical to set the bounds $k,l$ for tree depth and minimum split size. Optimizing these hyperparameters with more sophisticated methods than simple grid-search is out of the scope
+of this thesis, though.
+
+\subsubsection{Forming the ensemble}
+
+\subsection{Bayesian linear regression}
+\subsubsection{Bayesian approach to ordinary linear regression}
+\subsubsection{The posterior distribution}
+
+\subsection{Data} \label{data}
 
 \clearpage
 
