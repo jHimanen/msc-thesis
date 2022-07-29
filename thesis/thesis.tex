@@ -31,7 +31,7 @@
 \usepackage{graphicx}
 
 %% Math fonts, symbols, and formatting; these are usually needed
-\usepackage{amsfonts,amssymb,amsbsy,amsmath,dsfont}
+\usepackage{amsfonts,amssymb,amsbsy,amsmath,dsfont,bm}
 \usepackage{algorithm,algpseudocode}
 
 %% Change the school field to specify your school if the automatically set name
@@ -268,6 +268,7 @@ Otaniemi, 31.12.2022
   \textbf{CE}  & circular economy                  \\
   \textbf{GBC} & Green Building Council            \\
   \textbf{GHG} & greenhouse gas                    \\
+  \textbf{MVG} & multivariate Gaussian             \\
 \end{tabular}
 
 %% \clearpage is similar to \newpage, but it also flushes the floats (figures
@@ -431,7 +432,7 @@ to the ways of data aggregation on a more detailed level, and explore the possib
 
 \section{The Models}
 
-This chapter introduces two distinct modeling approaches, the random forest regressor and Bayesian linear regression (BLR), to predict demolition material streams using initial knowledge of the target
+This chapter introduces two distinct modeling approaches, the Random Forest regressor and Bayesian Linear Regression (BLR), to predict demolition material streams using initial knowledge of the target
 building. It is imperative to note, that these models are only a proof of concept - they are meant to demonstrate that given proper data, it is possible to use various machine learning algorithms
 to make feasible predictions on different material streams, and thus support the pre-demolition audit process. Hence, these models as such should not be relied on in actual cases.
 
@@ -441,40 +442,40 @@ to make feasible predictions on different material streams, and thus support the
 \subsection{On notation}
 
 Before applying the models on actual data in section \ref{data}, we will consider a general supervised learning setting with a dataset
-$\mathcal{D} = \{\textbf{z}_1,\hspace{1mm} \textbf{z}_2,\hspace{1mm} \ldots\hspace{1mm},\hspace{1mm} \textbf{z}_m \}$, where a vector $\textbf{z}_i$ denotes a data point consisting
+$\mathcal{D} = \{\bm{z}_1,\hspace{1mm} \bm{z}_2,\hspace{1mm} \ldots\hspace{1mm},\hspace{1mm} \bm{z}_m \}$, where a vector $\bm{z}_i$ denotes a data point consisting
 of features and labels, and $m$ is the size of the dataset. The feature space $\mathcal{X}$ encloses all possible feature values, and similarly, the label space $\mathcal{Y}$ is the space
 of all possible label values. In the case of $\mathcal{Y}$ being discrete, we talk about classification problems. In the problem setting of this thesis however, we have $\mathcal{Y} = \mathbb{R}$,
 which implies a regression problem.
 
-Let $n$ be the number of features in the dataset. The feature vector \\ $\textbf{x} = [x_1,\hspace{1mm} x_2,\hspace{1mm} \ldots\hspace{1mm},\hspace{1mm} x_n]$ contains
+Let $n$ be the number of features in the dataset. The feature vector \\ $\bm{x} = [x_1,\hspace{1mm} x_2,\hspace{1mm} \ldots\hspace{1mm},\hspace{1mm} x_n]$ contains
 all feature values for a single data point. It is often useful to represent all feature vectors in a $m \times n$ matrix
 %
 \begin{equation*}
-  \textbf{X}=
+  \mathbf{X}=
   \begin{bmatrix}
-    \textbf{x}_1 \\
-    \textbf{x}_2 \\
-    \vdots       \\
-    \textbf{x}_m \\
+    \bm{x}_1 \\
+    \bm{x}_2 \\
+    \vdots   \\
+    \bm{x}_m \\
   \end{bmatrix}.
 \end{equation*}
 %
 The label of the $i$th data point is denoted by $y_i$, and by extension, all labels in the dataset are represented in the label vector
-$\textbf{y} = [y_1,\hspace{1mm} y_2,\hspace{1mm} \ldots\hspace{1mm},\hspace{1mm} y_m]^T$. In the scope of this thesis, we will only consider a single label at a time in order to avoid higher
+$\bm{y} = [y_1,\hspace{1mm} y_2,\hspace{1mm} \ldots\hspace{1mm},\hspace{1mm} y_m]^T$. In the scope of this thesis, we will only consider a single label at a time in order to avoid higher
 dimensional label matrices.
 
-\subsection{Random forest regression}
+\subsection{Random Forest regression}
 
-Introduced by Breiman (2001)~\cite{breiman}, the random forest is a supervised ensemble learning method, that is made up by of a group of decision trees. Decision trees and random forests have
+Introduced by Breiman (2001)~\cite{breiman}, the Random Forest algorithm is a supervised ensemble learning method, that is made up by of a group of decision trees. Decision trees and random forests have
 remained a popular modeling approach because they imitate human reasoning and decision making, and are thus conseptually intuitive. They can be used for classification and regression tasks alike,
 but we will focus on the latter because of the nature of our problem setting.
 
 \subsubsection{Decision trees}
 
-A decision tree regressor is a predictor that maps features to the label space by essentially going through a series of if-else-statements. Each of these decision statements checks,
+A Decision Tree regressor is a predictor that maps features to the label space by essentially going through a series of if-else-statements. Each of these decision statements checks,
 whether or not a specific subset of features fills the decision criteria. This is done until the process arrives at a prediction. It is conventional to represent decision trees as graphs,
 that start at the top with a (root) decision node, and continue down to further decision nodes, until arriving at a leaf node. Here the decision nodes represent the if-else-clauses,
-and leaf nodes the predictions. A simple example of such a decision tree for three-dimensional data $\textbf{z}_i = [x^{(i)}_1,\hspace{1mm} x^{(i)}_2,\hspace{1mm} y^{(i)}]$ is
+and leaf nodes the predictions. A simple example of such a decision tree for three-dimensional data $\bm{z}_i = [x^{(i)}_1,\hspace{1mm} x^{(i)}_2,\hspace{1mm} y^{(i)}]$ is
 depicted in Figure \ref{fig:dt_example}.
 %
 \begin{figure}[h]
@@ -507,7 +508,7 @@ and $\mathcal{D}_i \cup \mathcal{D}_j = \mathcal{D}_0$. With $\mathcal{Y}$ denot
 The algorithm goes through every possible split and finally chooses
 %
 \begin{equation*}
-  \mathcal{D}_1, \mathcal{D}_2 = \arg \max_{\mathcal{D}_j, \mathcal{D}_j}\Delta\sigma^2
+  \mathcal{D}_1, \mathcal{D}_2 = \underset{\mathcal{D}_j, \mathcal{D}_j \subseteq \mathcal{D}_0}{\arg \max}\hspace{1mm}\Delta\sigma^2
 \end{equation*}
 %
 to be the respective subsets for the next nodes.
@@ -539,11 +540,117 @@ of this thesis, though.
 
 \subsubsection{Forming the ensemble}
 
-\subsection{Bayesian linear regression}
-\subsubsection{Bayesian approach to ordinary linear regression}
-\subsubsection{The posterior distribution}
+Another way to control overfitting and increase robustness of the Decision Tree model is to grow an ensemble of them and choose the average of all decision tree predictions as the final prediction.
+This method is called the Random Forest. In order to avoid correlated decision trees in the ensemble, the Random Forest algorithm trains each tree using a method called Bagging.~\cite{jung}
+
+The basic concept is to choose the training set for each tree by uniformly sampling a random subset with replacement from the original dataset. Additionally, the Random forest forces each tree to
+always consider only a random subset of features when choosing the best split at every decision node (line 6 of Algorithm \ref{alg:id3}). Introducing these random factors ensures that the
+generalization error of a random forest converges as the number of trees in the forest increases~\cite{breiman}, which makes it a strong tool to control overfitting.
+
+At this point, the main weakness of the Random Forest becomes evident. Computational complexity quickly becomes a problem, especially as the number of trees increases. Growing a single decision
+tree, especially with a large training set, is a computationally heavy task due to the need to go through all possible splits at each decision node. This effect is amplified when growing a
+random forest, resulting in a theoretical computational complexity of $\mathcal{O}(k\cdot t)$ (excluding unification costs) and memory space cost of $\mathcal{O}(2^k)$, where $k$ is the tree
+depth and $t$ is the number of trees in the forest.~\cite{sole}
+
+\subsection{Bayesian Linear Regression}
+
+The second, alternative modeling approach is Bayesian Linear Regression. It is arguably a slightly more advanced method, and offers the means to include domain knowledge in the model in the form
+of prior distributions, in addition to some metrics for uncertainty in the predictions. Given the scenario this model is applied to in this thesis, one could argue for BLR to be somewhat "overkill"
+of a choice. However, it goes to demonstrate that also more advanced probabilistic methods are applicable in this context.
+
+\subsubsection{A Bayesian approach to ordinary linear regression}
+
+We start with the familiar model of ordinary linear regression
+%
+\begin{equation} \label{glm}
+  \bm{y} = \mathbf{X}\bm{w} + \bm{\epsilon},
+\end{equation}
+%
+where $\bm{\epsilon}$ is an error vector. Fitting this model is done by solving the optimization problem of finding the weight vector $\hat{\bm{w}}$ that minimizes the sum of squared errors
+(the so-called Ordinary Least Squares problem)
+%
+\begin{equation}
+  \hat{\bm{w}} = \underset{\bm{w} \in \mathbb{R}^n}{\arg \min} \sum_{i=1}^m |y_i - \mathbf{X}\bm{w}|^2 = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\bm{y}
+\end{equation}
+%
+The Bayesian approach to this model follows the idea that we do not deal with exact values for the vectors $\bm{w}$ and $\bm{\epsilon}$, but rather place some probability distributions on them.
+Furthermore, we place prior distributions on the parameters of the afore mentioned distributions, which we then update with our data. The updated distribution is called \textit{the posterior}, and
+it is computed with Bayes' rule
+%
+\begin{equation} \label{bayes}
+  p(A|B) = \frac{p(B|A)p(A)}{p(B)},
+\end{equation}
+%
+where $p(A|B)$ is the posterior (the probability of parameter $A$ given the data $B$), $p(B|A)$ the likelihood (the probability of observing the data $B$ given parameter $A$), and $p(A)$ is the
+prior on parameter $A$. The quantity $p(B)$ is another prior-like marginal probability, but as we will see in section \ref{posterior}, it can be dealt with as a normalizing constant when deriving
+the posterior distribution.
+
+Obtaining the posterior can be cumbersome; at times there might not even be an analytical solution available, and one has to resort to e.g. numerical integration. There is, however, the possibility
+of using a conjugate prior, which makes computations more straightforward and guarantees the existence of a closed-form posterior.~\cite{raiffa} This essentially means, that using a prior that is
+conjugate to the likelihood results in a posterior of the same family of distributions as the prior.
+
+Going back to the linear model in Equation \eqref{glm}, we now make the assumption that our data is given rise to by a multivariate normal distribution, or Gaussian (MVG). Knowing that the conjugate
+prior for a MVG likelihood is also a MVG~\cite{murphy}, we place on the weights and errors, or noise, the prior distributions
+%
+\begin{align}
+  \bm{w}        & \sim \mathcal{N}(\bm{\mu}_0,\alpha^{-1}\mathbf{I}) \label{wprior} \\
+  \bm{\epsilon} & \sim \mathcal{N}(\bm{0},\beta^{-1}\mathbf{I}), \label{eprior}
+\end{align}
+%
+with $\alpha, \beta$ being hyperparameters interpreted as weight and noise precision, respectively. We can now write the likelihood as
+%
+\begin{equation}\label{likel}
+  p(\bm{y}|\bm{w},\beta) = \mathcal{N}(\mathbf{X}\bm{w}, \beta^{-1}\mathbf{I}).
+\end{equation}
+
+\subsubsection{Deriving the posterior distribution} \label{posterior}
+
+Arguably the most challenging part of BLR is coming up with the posterior for $\bm{w}$. Even with conjugacy, it still depends on the exact form of the priors and likelihood, and thus has to be
+derived carefully. Despite the lack of a general formula, we can still usually follow a certain routine to complete the derivation:
+%
+\begin{enumerate}
+  \item Start with Bayes' rule \eqref{bayes} and drop all normalizing constant terms independent of $\bm{w}$
+  \item Perform some algebraic manipulations
+  \item Due to conjugacy, recognize an unnormalized form of a distribution belonging to the same family as the prior
+\end{enumerate}
+%
+Following these steps, we can now derive the posterior for our case.
+
+Using Bayes' rule \eqref{bayes} and our pre-defined distributions \eqref{wprior}-\eqref{likel}, we can express the (unnormalized) posterior as
+%
+\begin{equation} \label{posterior_start}
+  p(\bm{w}|\mathbf{X},\bm{y},\alpha,\beta)
+  \hspace{1mm}\propto\hspace{1mm} p(\bm{y}|\bm{w},\beta)p(\bm{w}|\alpha)
+  \hspace{1mm}=\hspace{1mm}\mathcal{N}(\bm{y}|\mathbf{X}\bm{w}, \beta^{-1}\mathbf{I})\mathcal{N}(\bm{w}|\bm{\mu}_0,\alpha^{-1}\mathbf{I}).
+\end{equation}
+%
+Writing out the two Gaussians, dropping constant terms and rearranging, we can state that the product in \eqref{posterior_start} is proportional to
+%
+\begin{align*}
+          & \exp\left[-\frac{1}{2}\beta (\bm{y}-\mathbf{X}\bm{w})^T(\bm{y}-\mathbf{X}\bm{w})\right] \exp\left[-\frac{1}{2}\alpha (\bm{w}-\bm{\mu}_0)^T(\bm{w}-\bm{\mu}_0)\right] \\
+  \propto & \exp\left[-\frac{1}{2}\beta\bm{w}^T\mathbf{X}^T\mathbf{X}\bm{w} + \beta\bm{y}^T\mathbf{X}\bm{w}-\frac{1}{2}\alpha\bm{w}^T\bm{w} + \alpha\bm{w}^T\bm{\mu}_0\right]    \\
+  =       & \exp\left[-\frac{1}{2}\bm{w}^T(\underbrace{\beta\mathbf{X}^T\mathbf{X}+\alpha\mathbf{I}}_{\mathbf{\Sigma}^{-1}})\bm{w}
+    +(\underbrace{\beta\bm{y}^T\mathbf{X}+\alpha\bm{\mu}_0^T}_{\bm{\mu}^T\mathbf{\Sigma}^{-1}})\bm{w}\right].
+\end{align*}
+%
+Completing the square~\cite{barber}, we get that the above expression is proportional to
+%
+\begin{equation*}
+  \exp\left[-\frac{1}{2}(\bm{w}-\bm{\mu})^T\mathbf{\Sigma}^{-1}(\bm{w}-\bm{\mu})\right],
+\end{equation*}
+%
+which we recognize as the unnormalized Gaussian $\mathcal{N}(\bm{w}|\bm{\mu},\mathbf{\Sigma})$ with
+%
+\begin{align}
+  \bm{\mu} =        & \mathbf{\Sigma}(\beta\mathbf{X}^T\bm{y}+\alpha\bm{\mu}_0) \label{post_mean} \\
+  \mathbf{\Sigma} = & (\beta\mathbf{X}^T\mathbf{X}+\alpha\mathbf{I})^{-1} \label{post_cov}.
+\end{align}
+%
+This concludes the derivation, as we are left with a MVG with mean \eqref{post_mean} and covariance \eqref{post_cov} as the posterior distribution for the regression weights $\bm{w}$.
 
 \subsection{Data} \label{data}
+
+\subsection{Implementation}
 
 \clearpage
 
