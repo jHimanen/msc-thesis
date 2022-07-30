@@ -263,12 +263,13 @@ Otaniemi, 31.12.2022
 \mysection{Abbreviations}
 
 \begin{tabular}{ll}
-  \textbf{API} & application programming interface \\
+  \textbf{API} & Application programming interface \\
   \textbf{BLR} & Bayesian linear regression        \\
-  \textbf{CE}  & circular economy                  \\
+  \textbf{CDW} & Construction and demolition waste \\
+  \textbf{CE}  & Circular economy                  \\
   \textbf{GBC} & Green Building Council            \\
-  \textbf{GHG} & greenhouse gas                    \\
-  \textbf{MVG} & multivariate Gaussian             \\
+  \textbf{GHG} & Greenhouse gas                    \\
+  \textbf{MVG} & Multivariate Gaussian             \\
 \end{tabular}
 
 %% \clearpage is similar to \newpage, but it also flushes the floats (figures
@@ -328,7 +329,7 @@ resource extraction and processing made up approximately half of global greenhou
 biodiversity loss and water stress.~\cite{oberle} It has become evident, that the sun has set on the old linear economy model. We
 can not afford to extract, use and dispose of resources with the pace we have reached due to assumptions of limitless economic growth
 with little to no regard to external costs. The concept of a circular economy presents an alternative model to this, where product
-lifetime and reusability is maximized, production waste is minimized, and business models based on sharing and reusing products are implemented.
+lifetime and reusability is maximized, production waste is minimized, and business models based on sharing and reusing products are implemented.~\cite{hedberg}
 The potential in these strategies is enormous: according to a Material Economics study from 2018~\cite{enkvist}, the transition to a more
 circular economy could reduce GHG emissions from heavy industry in the EU by 56\% by 2050. Contrary to a common misconception, this shift does not
 need to happen at the cost of economic growth as a whole. Aligning technologies and business models to tackle wasteful value creation chains
@@ -346,13 +347,13 @@ as long as it is properly managed. They divide approaches to use digitalization 
   \item Making business models, products and processes more circular
   \item Strengthening the roles of citizens and consumers
 \end{enumerate}
-Within the scope of this thesis, we will mainly focus on category 1, exploring the ways proper data aggregation, utilization and sharing can support businesses in adapting more circular
+Within the scope of this thesis, we will mainly focus on categories 1 and 2, exploring the ways proper data aggregation, utilization and sharing can support businesses in adapting more circular
 models. Specifically, we will look at the construction industry, as it is responsible for almost half of global raw material extraction and a quarter of
 global GHG emissions.~\cite{amro}
 
 \subsection{Circularity in the Finnish construction industry} \label{finnish_construction}
 
-When reviewing the environmental impact of the construction industry, it is essential to divide carbon emissions into three categories according to the phases
+When reviewing $\text{CO}_2$ emissions as part of the environmental impact of the construction industry, it is essential to divide them into three categories according to the phases
 in the lifecycle of a building:
 \begin{enumerate}
   \item \textbf{Upfront carbon} (materials production and construction phase)
@@ -368,42 +369,48 @@ to a more circular operating model. The Finnish government has recently taken th
 they established a strategic programme \cite{gov} to pave the way towards a new Finnish economy based on CE by 2035. The programme dedicates a significant amount of focus on the
 construction industry, and specifies several action points to promote CE in its context, including financial incentives, digitalization and data management.
 
-There are, however, plenty of challenges to overcome. Especially crucial is the disconnection between supply and demand in the Finnish recycled construction product market. On a demolition site,
-the prime contractor owns all of the materials (although the responsibility of demolition waste handling lies with the demolition contractor, if the demolition is outsourced by the prime contractor),
-and therefore is also responsible for processing all of the material streams released during demolition accordingly, including all related costs and taxes. On the other hand, there are plenty of costs
-embedded in the process of preparing the materials from extraction to reuse, and said costs often outweigh the costs of disposing of these materials, which makes it less appealing for contractors
-to salvage them for reuse (some components can be extracted pre-demolition and used again as such) and recycling (products that are not feasible for reuse are processed into new products).
-It can thus be argued, that there exists at least a potential financial incentive for the contractors to sell as much of the released materials as possible,
-to be used in new construction. The challenge is to minimize the costs of processing used construction products and demolition waste for reuse and recycling. The problem described above also
-has the effect of making virgin materials often more attractive price-wise, which hinders the demand for used and recycled construction products, and makes adapting
-a more circular model difficult from the point of view of procurement as well.
+From a CE point of view, one of the the main challenges in the Finnish construction industry is construction and demolition waste (CDW) management. Legislation and various costs seem to
+form a setting, where there is no clear and desirable way for the responsible party to handle CDW. On a demolition site, for example,
+the prime contractor owns all of the materials and waste (although the responsibility of demolition waste handling lies with the demolition contractor, if the demolition is outsourced
+by the prime contractor), and therefore is also responsible for processing all of the material streams released during demolition accordingly, including all related costs and taxes.
+Current legislation makes it difficult, and in many cases expensive, to arbitrarily dispose of CDW. Obviously, this option is also undesirable from an ecological point of view, due to
+which it is also safe to assume that legislation is going to get even more strict in this matter. Enormous costs and the lack of proper real estate, on the other hand, make it impractical
+to store CDW even for short spans of time. These matters lead to the conclusion that there is also a significant cost case in addition to the ecological case, that speaks for a circular
+system where CDW could be salvaged immediately from site for reuse (some components can be extracted pre-demolition and used again as such) and recycling (waste that is not feasible
+for reuse is processed into new products).
 
-This problematic is clearly a key obstacle, as it effects negatively both the supply and demand sides of the non-virgin construction product market.
+There are, however, significant challenges to overcome. Plenty of costs are embedded in the process of preparing CDW from extraction to reuse and recycling, and said costs often
+outweigh the costs of disposing of this waste, which makes it less appealing for contractors to salvage it. This problem tends to have the effect of making virgin materials
+more attractive price-wise, which hinders the demand for reusable and recycled CDW, and makes adapting a more circular model difficult from the point of view of procurement as well.
+Not only that, but the whole paradigm of construction and most of its processes are built around using virgin materials; a buyer generally risks lower product quality when dealing with
+reused and recycled materials. This problematic is clearly a key obstacle, as it effects negatively both the supply and demand sides of the non-virgin construction material market.
 This has also been recognized by the Finnish government, as it has recently set in motion investigation projects to e.g. identify
 ambiguities in construction product qualification procedures.~\cite{zhu} As an example result, the Finnish Ministry of the Environment released a policy brief~\cite{tahtinen} on verifying the
-feasability of reused materials in June 2022. It states that it is sufficient to check for feasabilty with construction site -specific verification, i.e. a CE-marking is not
-required for construction products that are reused as such.
+feasability of reused materials in June 2022. It states that it is sufficient to check for feasability with construction site -specific verification, which means that a CE-marking is not
+required for e.g. demolition waste that is reused as such.
 
 However, even if there was a strong financial incentive to favor non-virgin materials, a significant challenge remains aligning demand
-with supply on a temporal level. Currently, contractors are able to release information of available materials only as soon as they become available, as the demolition project proceeds.
-Because storage possibilities for these materials are few and often costly, the time window to find a buyer is far too narrow. To counter this challenge, Finnish officials are working
-on a series of databases and registers that would together provide a centralized data storage system for information on demolition projects and plans, construction product
-charecteristics and material streams, to name a few. These systems are planned to come with diverse APIs to enable private entities to develop their own services and platforms to utilize all of
-the data stored in these public systems. The following section will introduce one such project, in which the author is also involved through his employment.
+with supply in the reusable and recycled CDW market on a temporal level. Currently, contractors are able to release information of available materials only as soon as they become available,
+as the demolition project proceeds. Because storage possibilities for these materials are few and costly, the time window to find a buyer is far too narrow. Additionally, this unpredictable
+batch-like supply leads to discontinuous availability, rather than a continuous supply of non-virgin materials. To counter this challenge,
+Finnish officials are working on a series of databases and registers that would together provide a centralized data storage system for information on demolition projects and plans, construction
+product charecteristics and material streams, to name a few. These systems are planned to come with diverse APIs to enable private entities to develop their own services and platforms to
+utilize all of the data stored in these public systems. The following section will introduce one such project, in which the author is also involved through his employment.
 
 \subsection{Motiva's data platform and ecosystem for material circulations} \label{motiva}
 
-In order to make the raw data from the existing and upcoming registers for construction materials and demolition waste described in the previous section available and usable to companies and
+In order to make the raw data from the existing and upcoming registers for construction materials and demolition waste available and usable to companies and
 consumers, it is vital that different services are developed to refine and process the data. Even though work on the state-wide registers is still in progress, the Finnish state-owned
 company Motiva Ltd. is already working on a platform for construction material circulation. Motiva is a company of experts specialized in providing organizations and consumers
 with information, solutions and services on how to use energy and materials more efficiently and sustainably. With this platform, it is Motiva's aim to build a hub that collects
-information from various sources under a single platform, and acts as a meeting place for supply and demand of non-virgin construction materials.
+information from various sources under a single platform, acts as a meeting place for supply and demand of non-virgin construction materials and supports all relevant stakeholders in adapting to
+a more circular operating model in the construction industry.
 
-At the moment, this platform is still in the planning phase. Motiva has developed the concept for it, and it is currently being validated and further developed in two different demolition projects.
-The first one takes place in Vattuniemi, Helsinki, where 16 buildings are set to be demolished during 2022-23. The other demolition site is located in the Tampere area, where especially the reuse
-and circulation of ashes as a construction product is being explored. These projects are vital in gathering field experience on the challenges and requirements of material circulation.
-Specifically, Motiva seeks to pilot planned features of their platform, and to gain knowledge on how exactly predictive, data-driven demolition planning supports a circular economy
-in the construction industry.
+At the moment, this platform is still in the planning phase. Motiva has developed the concept for it, and it has been validated and further developed using two different projects as case studies.
+The first one is a demolition project that takes place in Vattuniemi, Helsinki, where 16 buildings are set to be demolished during 2022-23. The other site is located in the
+Tampere area, where especially the reuse and circulation of ashes as a construction product in infrastructure building was explored. The latter project ended in Spring 2022 for the time being.
+These projects are vital in gathering field experience on the challenges and requirements of material circulation. Specifically, Motiva seeks to pilot planned features of their platform,
+and to gain knowledge on how exactly predictive, data-driven demolition planning supports a circular economy.
 
 \subsection{The potential of pre-demolition audits} \label{pre_dem}
 
@@ -418,15 +425,16 @@ order to align demand with supply in the non-virgin material market.
 Carrying out pre-demolition audits, and especially estimating the amounts of different materials released, is hard to do accurately. All experts interviewed for this thesis agreed on this,
 and stated several possible reasons for the significant errors that occur even in state-of-the-art audits. Some of the material amounts are especially hard to predict, because they might
 often be hidden from plain sight in the foundations of the building in question. An example of this kind of material is mineral wool, which is often used as an insulator. Especially in the case of old
-buildings, where the quality of material documentation might be suboptimal, these kind of "hidden" materials can be nigh unto impossible to predict. It might also happen, that some renovations or
+buildings, where the quality of material documentation might be suboptimal, these kind of "hidden" materials can be nigh unto impossible to predict. Extensive, on-site analyses might yield better
+results, but these are mostly impractical, because the target buildings are often still in use at the time of conducting the audit. It might also happen, that some renovations or
 other changes during the building's lifetime have not been properly documented, which causes some material streams to come as a surprise during demolition. Finally, it is also natural that clients
 want to minimize the costs of a demolition project, and the pre-demolition auditors may have to compromise extensiveness and accuracy of the audit in order to stay within the budget.
 
 Given the potential of pre-demolition audits from a CE point of view, and the nature of the challenges described above, it is evident that making the audit process more data-driven holds significant
 possibilities to develop construction material circulation. The obvious bottleneck at the moment, however, is the lack of data. There are no standardized, mandatory procedures to store pre-demolition
 audit, material mapping, or realized material stream data. This leads to the relatively small amount of feasible data to be scattered all over different stakeholders, and to have little to
-no quality guarantees. This challenge is at least partly being addressed by the projects described in sections \ref{finnish_construction} and \ref{motiva}, but this thesis will contribute
-to the ways of data aggregation on a more detailed level, and explore the possibilities of utilizing this data in the future.
+no quality guarantees. This challenge is at least partly being addressed by the projects described in sections \ref{finnish_construction} and \ref{motiva}, but this thesis will motivate and set a
+roadmap for proper data aggregation, utilization and sharing in this industry by demonstrating predictive capabilities using actual proof-of-concept models.
 
 \clearpage
 
