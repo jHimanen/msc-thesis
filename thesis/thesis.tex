@@ -658,6 +658,22 @@ This concludes the derivation, as we are left with a MVG with mean \eqref{post_m
 
 \subsection{Data} \label{data}
 
+The data we are going to train and test these models on is based on 16 actual pre-demolition audits carried out on target buildings on the Vattuniemi demo site (\ref{motiva}).
+Each building being represented as a data point, the set of features is obtained from initial knowledge of the building. The label set, on the other hand, includes estimates of four different
+materials released as CDW waste during demolition, calculated by domain experts in the pre-demolition audit. Some of the feature and label titles, along with an example data point, can be seen below.
+
+\begin{table}[h!]\label{datapoint}
+  \centering
+  \begin{tabular}{ccccccc}
+    \textbf{Area} & \textbf{Volume} & \textbf{Storeys} & \textbf{Concrete} & \textbf{Mineral wool} & \textbf{Metal} & \textbf{Glass} \\
+    9590          & 32400           & 6                & 9028.1            & 20.5                  & 214            & 25.1
+  \end{tabular}
+\end{table}
+%
+Here, the three chosen features are area, volume, and number of storeys, the units of the former two being $\text{m}^2$ and $\text{m}^3$, respectively. The four labels are measured in metric tons.
+There are a number of alternative features available, such as categorical variables indicating building type or load bearing material, year of construction, and binary features indicating, whether
+the target building in question is equipped with an elevator or sewer system.
+
 \subsection{Implementation}
 
 \clearpage
@@ -677,8 +693,13 @@ This concludes the derivation, as we are left with a MVG with mean \eqref{post_m
 % Contribution: 35\%
 % Order of work: 4/6
 
-\subsection{Meaning of modeling results}
+\subsection{Interpreting the modeling results}
 \subsection{Roadmap for data aggregation and preservation}
+% - Standard for pre-demolition audits and demolition reports (actuals)
+% - Submitted to register with APIs
+% - Same applies for features of new and existing buildings
+% - E.g. Motiva's platform could consume said APIs
+% - DATA SHARING?
 \subsection{Future modeling possibilities}
 
 \clearpage
