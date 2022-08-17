@@ -269,6 +269,7 @@ Otaniemi, 31.12.2022
   \textbf{CE}  & Circular economy                  \\
   \textbf{GBC} & Green Building Council            \\
   \textbf{GHG} & Greenhouse gas                    \\
+  \textbf{ML}  & Machine learning                  \\
   \textbf{MVG} & Multivariate Gaussian             \\
 \end{tabular}
 
@@ -295,7 +296,13 @@ Otaniemi, 31.12.2022
 % Contribution: 5\%
 % Order of work: 6/6
 
-%% In a thesis, every section starts a new page, hence \clearpage
+Research questions:
+
+\begin{itemize}
+  \item To what extent is ML-based predictive modeling feasible in the context of CDW streams?
+  \item What does this imply in terms of data aggregation and storage?
+\end{itemize}
+
 \clearpage
 
 \section{Background} \label{background}
@@ -306,7 +313,7 @@ Otaniemi, 31.12.2022
 This chapter establishes the reasoning behind the urgent need for a global transition towards a circular economy (CE) and describes the role digitalization plays in the process.
 It takes the Finnish construction industry as an example of this transition, and specifies the key challenges and opportunities of driving the change with data and digital solutions.
 
-\subsection{Circular economy and digitalization} \label{ce}
+\subsection{From linear to circular economies} \label{ce}
 
 It is no news that the ongoing environmental crises, such as global warming and loss of biodiversity, pose a large part of the most
 significant threats of our lifetime. The challenge of steering humankind towards a sustainable way of life is monumental, and requires
@@ -326,20 +333,48 @@ challenge. In other words, it is safe to state that the two latter trends play a
 The culprits behind our environmental crises are manifold, but at the end of the day, much of the problem boils
 down to how we use the natural resources our planet provides us with. Already in 2019,
 resource extraction and processing made up approximately half of global greenhouse gas (GHG) emissions, in addition to more than 90\% of
-biodiversity loss and water stress.~\cite{oberle} It has become evident, that the sun has set on the old linear economy model. We
+biodiversity loss and water stress.~\cite{oberle} It has become evident, that the sun has set on the "take-make-dispose" linear economy model. We
 can not afford to extract, use and dispose of resources with the pace we have reached due to assumptions of limitless economic growth
-with little to no regard to external costs. The concept of a circular economy presents an alternative model to this, where product
-lifetime and reusability is maximized, production waste is minimized, and business models based on sharing and reusing products are implemented.~\cite{hedberg}
-The potential in these strategies is enormous: according to a Material Economics study from 2018~\cite{enkvist}, the transition to a more
+with little to no regard to external costs.
+
+The concept of a circular economy presents an alternative model to this, where the use of raw materials and production emissions are decreased by e.g. maximizing product
+lifetime and reusability, minimizing production waste, and implementing business models based on sharing, reusing and recycling products.~\cite{hedberg}
+Figure \ref{fig:ce} summarizes how this kind of circularity is achieved by looping the disposal streams of a linear economy model back to the different stages of the value chain.
+It is also important to notice the prioritization of those loops; ideally, the inner loops are the most significant ones, since they require less effort and resources to return to the user.
+For example, it is generally more desirable to return a product to the provider to be reused as such, than to deconstruct the product, recycle the materials and produce new parts and products
+out of them.
+
+The potential in this transition is enormous: according to a Material Economics study from 2018~\cite{enkvist}, the transition to a more
 circular economy could reduce GHG emissions from heavy industry in the EU by 56\% by 2050. Contrary to a common misconception, this shift does not
-need to happen at the cost of economic growth as a whole. Aligning technologies and business models to tackle wasteful value creation chains
+need to happen at the cost of economic growth as a whole.
+%
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.9\textwidth]{images/WEF_CE.png}
+  \caption{\label{fig:ce}The various loops of a circular economy. \textit{Source: World Economic Forum}~\cite{wef}}
+\end{figure}
+%
+Aligning technologies and business models to tackle wasteful value creation chains
 and shift towards a more circular model would actually create new markets, and boost employment, lifting EU's GDP by 7\% and
 yielding annual benefits of up to €1,8 trillion by 2030.~\cite{macarthur}
 
+\subsection{The role of digitalization, data and machine learning} \label{dnd}
+
 As Sitra states, technology is embedded in everything, and the transition to CE is, of course, no exception. The breathtaking pace digitalization
-has developed with during the last decades has presented us with countless possibilities and opportunities, but also with its own set of challenges.
-For example, with increasing amounts of digital solutions and services increases also the demand for energy. Hence, it would be naïve to assume
-digitalization to be a "silver bullet" that directly solves the problems related to implementing CE models, as stated in a 2019 study by the European
+has developed with during the last decades has presented us with countless possibilities and opportunities.
+
+A field that has seen rapid advances in the last decade alone, is Machine learning (ML). Being one of the most widespread modeling paradigms today, ML methods
+have an impact on all of our lives, whether we want them to or not. Every digital device and transaction generates data, that is utilized in increasing amounts by ML models used to
+e.g. personalize services and recommendations, and optimize marketing and sales.
+
+In short, the general concept of ML is to take a set of low-level quantities
+(features) from a data-generating system, and making predictions of quantities of interest (labels) by mapping the features to the labels using a hypothesis map.
+An optimal hypothesis map is obtained from a typically large set of candidate maps by minimizing the discrepancy (loss) between actual label values and those predicted
+by the hypothesis map candidates. This procedure is referred to as "training" an ML model.~\cite{jung}
+
+Advances in ML and other areas of data and digitalization, however, come with a significant set of challenges, as well. In addition to a plethora of privacy issues related to emerging
+data economies, with increasing amounts of digital solutions and services increases also the demand for energy. Hence, it would be naïve to assume
+digitalization to be a "silver bullet" that directly solves all of our problems. This is also the case in implementing CE models, as is stated in a 2019 study by the European
 Policy Centre (EPC).~\cite{hedberg} That being said, the study focuses on establishing the role of digitalization as a key enabler of CE -
 as long as it is properly managed. They divide approaches to use digitalization to accelerate the transition to CE into three categories:
 \begin{enumerate}
@@ -347,11 +382,29 @@ as long as it is properly managed. They divide approaches to use digitalization 
   \item Making business models, products and processes more circular
   \item Strengthening the roles of citizens and consumers
 \end{enumerate}
-Within the scope of this thesis, we will mainly focus on categories 1 and 2, exploring the ways proper data aggregation, utilization and sharing can support businesses in adapting more circular
-models. Specifically, we will look at the construction industry, as it is responsible for almost half of global raw material extraction and a quarter of
+Within the scope of this thesis, we will mainly focus on categories 1 and 2, exploring the ways proper data aggregation and utilization through ML models can support businesses in adapting
+more circular models. Specifically, we will look at the construction industry, as it is responsible for almost half of global raw material extraction and a quarter of
 global GHG emissions.~\cite{amro}
 
 \subsection{Circularity in the Finnish construction industry} \label{finnish_construction}
+
+In order to further clarify the context of this thesis, it is necessary to gain some understanding of the different entities that play a role in the Finnish construction industry, and specifically,
+what their responsibilities and impacts in terms of construction material circulation is.
+Figure \ref{fig:ci_roles} illustrates how different stakeholders interact in a demolition project. This is, of course, only an example setting and a simplification, but serves to explain
+the general flow. In some cases, the real estate owner might assume more responsibility and drop the main contractor as a redundant link in the chain. Often it is also the case, that the demolition
+contractor does the pre-demolition audit as well.
+
+From the point of view of material flow, though, it is imperative to notice that not all materials released during demolition are the responsibility
+of a single entity. Reusable components and movables, that are possible to extract without heavy machinery, belong to the owner/main contractor, and have to be removed before actual demolition.
+%
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.9\textwidth]{images/construction_idstr_roles.PNG}
+  \caption{\label{fig:ci_roles}The different roles and their interactions in a generic demolition project.}
+\end{figure}
+%
+This process is usually outsourced to recycling operators that extract the components and sell them on to new users. Reusable components, that require heavy machinery for extraction,
+on the other hand, are the responsibility of the demolition contractor, and have to be explicitly specified by the owner/main contractor.
 
 When reviewing $\text{CO}_2$ emissions as part of the environmental impact of the construction industry, it is essential to divide them into three categories according to the phases
 in the lifecycle of a building:
@@ -438,7 +491,7 @@ roadmap for proper data aggregation, utilization and sharing in this industry by
 
 \clearpage
 
-\section{The Models}
+\section{The Models} \label{models}
 
 This chapter introduces two distinct modeling approaches, the Random Forest regressor and Bayesian Linear Regression (BLR), to predict demolition material streams using initial knowledge of the target
 building. It is imperative to note, that these models are only a proof of concept - they are meant to demonstrate that given proper data, it is possible to use various machine learning algorithms
@@ -498,7 +551,7 @@ starts to process the next data point. If the next node is a decision node, the 
 the new feature vector through the decision nodes, until it lands on a leaf node. The predicted label is then given a value equal to, for example, the mean of the training labels in
 the subset associated with that leaf node.
 
-An obvious point of interest remains the question of how to grow an optimal decision tree. There are several possibilities to do this, but we will consider a variant of the ID3
+An obvious point of interest remains the question of how to grow an optimal decision tree. There are several possibilities to do this, but we will consider as an example a variant of the ID3
 (Iterative Dichotomizer 3) algorithm~\cite{quinlan} (Algorithm \ref{alg:id3}), designed to handle regression problems.
 The algorithm starts with a training set $\mathcal{D}$ and a root node. It then proceeds to recursively build the two subtrees sprouting from the root node, until maximum tree depth $k$ is reached,
 or the size of the resulting subset is small enough ($<l$).
@@ -658,9 +711,9 @@ This concludes the derivation, as we are left with a MVG with mean \eqref{post_m
 
 \subsection{Data} \label{data}
 
-The data we are going to train and test these models on is based on 16 actual pre-demolition audits carried out on target buildings on the Vattuniemi demo site (\ref{motiva}).
+The data these models are trained and tested on is based on 16 actual pre-demolition audits carried out on target buildings on the Vattuniemi demo site (\ref{motiva}).
 Each building being represented as a data point, the set of features is obtained from initial knowledge of the building. The label set, on the other hand, includes estimates of four different
-materials released as CDW waste during demolition, calculated by domain experts in the pre-demolition audit. Some of the feature and label titles, along with an example data point, can be seen below.
+materials released as CDW during demolition, calculated by domain experts in the pre-demolition audit. Some of the feature and label titles, along with an example data point, can be seen below.
 
 \begin{table}[h!]\label{datapoint}
   \centering
@@ -675,6 +728,15 @@ There are a number of alternative features available, such as categorical variab
 the target building in question is equipped with an elevator or sewer system.
 
 \subsection{Implementation}
+
+Both models were implemented in a Python environment, using different libraries for convenience, namely NumPy~\cite{numpy} for computing and pandas~\cite{pandas} for data processing. In order to
+find optimal hyperparameter values, a grid search was performed on both models' hyperparameters.
+
+\subsubsection{Random Forest}
+
+For the Random Forest model, a ready-made implementation in the Scikit-learn library~\cite{sklearn} was used, namely \verb|sklearn.ensemble.RandomForestRegressor|.
+
+\subsubsection{BLR}
 
 \clearpage
 
@@ -694,12 +756,43 @@ the target building in question is equipped with an elevator or sewer system.
 % Order of work: 4/6
 
 \subsection{Interpreting the modeling results}
+
+
+
 \subsection{Roadmap for data aggregation and preservation}
 % - Standard for pre-demolition audits and demolition reports (actuals)
 % - Submitted to register with APIs
 % - Same applies for features of new and existing buildings
 % - E.g. Motiva's platform could consume said APIs
 % - DATA SHARING?
+
+As was established in section \ref{pre_dem}, there is not much to build on, when it comes to data utilization in the Finnish construction industry. Hence, we have to begin building from the
+ground up, starting from the question of how to aggregate and store data; predictive modeling only becomes a viable tool when there is enough data to properly train and test the models.
+
+With public entities already working on ways to promote extensive pre-demolition audits, and this study showing that predictive modeling is possible even with minimal demolition material mappings,
+it is critical to also think about how these documents should be stored in order for them to be easily accessible and usable. The Finnish Ministry of the Environment has already set in motion a
+project to design and build a public register for CDW data. [LÄHDE?] Preliminary investigations for this register were completed in February 2022, and implementation is scheduled for 2023-24.
+This register is to serve as a general repository, where contractors and real estate owners submit material mappings and pre-demolition audits.
+
+Up to this point, we have knowingly disregarded a crucial aspect of our data. The proof-of-concept models in Chapter \ref{models} were trained and tested on data based on pre-demolition estimates
+only. This is, of course, suboptimal. After all, the aim is to predict actual, realized material streams instead of estimates. Data on realized CDW amounts in demolition projects is currently
+even less available than pre-demolition audits. Therefore, it is crucial that the entities carrying out demolition projects submit detailed reports on actuals, as well as pre-demolition estimates.
+The preivously mentionend public CDW data register would serve as a logical place to store those reports as well.
+
+Considering the data even more closely, it is worth to also question what goes into the pre-demolition audits and actuals. Recalling that one of the most significant obstacles hindering CE in the
+construction industry is the lack of temporal alignment of demand and supply in the non-virgin material market, it is noteworthy that a temporal aspect in CDW data is currently absent
+in both pre- and post-demolition reporting. Hence, a key development point in CDW data aggregation is to start including estimates of temporal distributions for the released material streams in
+pre-demolition audits. Practically, this means stating for each material stream, at which time points during the demolition project a batch of that material would be available, and how large those
+batches would be. Demolition projects can span several months, so it would be an oversimplification to assume that each material batch would be released as a single batch at the end of the project.
+Improving these estimates naturally requires that the realized temporal distributions are also properly reported in order to grow a base of quality data for training more sophisticated
+predictive models.
+
+Another challenge lies with obtaining the features, i.e. basic knowledge of the target buildings themselves. As stated before, the older end of the Finnish building base is not very well documented,
+and even in the case of newer buildings, the data is quite scattered and not easily accessible. Streamlining and gathering the data on existing real estate under one roof, and even more importantly,
+developing the standards for documenting and storing data on new buildings are important factors in making the operating model more circular. It is also crucial not to forget that the structures of
+buildings change during their lifetime due to e.g. renovations. These changes have to be documented the same as during construction in order to preserve actual information on the building. All in all,
+it is necessary to aggregate accurate data on buildings during their whole life cycle, and store it in a way that it is accessible through APIs, for example.
+
 \subsection{Future modeling possibilities}
 
 \clearpage
@@ -710,17 +803,11 @@ the target building in question is equipped with an elevator or sewer system.
 % Order of work: 5/6
 
 
-%% Handle bibliography with bib(la)tex, commented out
 \clearpage
 
 \bibliographystyle{plain}
 \bibliography{refs}
 
-%\thesisbibliography
-
-%\begin{thebibliography}{99}
-
-%\end{thebibliography}
 
 %% Appendices
 %% If you don't have appendices, remove \clearpage and \thesisappendix below.
