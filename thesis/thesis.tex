@@ -29,6 +29,8 @@
 %\documentclass[finnish, 12pt, a4paper, elec, dvips, online]{aaltothesis}
 
 \usepackage{graphicx}
+\usepackage[justification=centering]{caption}
+\usepackage{subcaption}
 
 %% Math fonts, symbols, and formatting; these are usually needed
 \usepackage{amsfonts,amssymb,amsbsy,amsmath,dsfont,bm}
@@ -78,7 +80,7 @@
 %% argument in box brackets. This is done because the title is part of the 
 %% metadata in the pdf/a file, and the metadata cannot contain linebreaks.
 %%
-\thesistitle{Title TBD}
+\thesistitle{Towards a data-driven circular economy: the potential of predicting material streams in the Finnish construction industry}
 %\thesistitle[Title of the thesis]{Title of\\ the thesis}
 %%
 
@@ -269,8 +271,10 @@ Otaniemi, 31.12.2022
   \textbf{CE}  & Circular economy                  \\
   \textbf{GBC} & Green Building Council            \\
   \textbf{GHG} & Greenhouse gas                    \\
+  \textbf{HP}  & Hyperparameter                    \\
   \textbf{ML}  & Machine learning                  \\
   \textbf{MVG} & Multivariate Gaussian             \\
+  \textbf{RF}  & Random forest                     \\
 \end{tabular}
 
 %% \clearpage is similar to \newpage, but it also flushes the floats (figures
@@ -368,7 +372,7 @@ have an impact on all of our lives, whether we want them to or not. Every digita
 e.g. personalize services and recommendations, and optimize marketing and sales.
 
 In short, the general concept of ML is to take a set of low-level quantities
-(features) from a data-generating system, and making predictions of quantities of interest (labels) by mapping the features to the labels using a hypothesis map.
+(features) from a data-generating system, and make predictions of quantities of interest (labels) by mapping the features to these labels using a hypothesis map (model).
 An optimal hypothesis map is obtained from a typically large set of candidate maps by minimizing the discrepancy (loss) between actual label values and those predicted
 by the hypothesis map candidates. This procedure is referred to as "training" an ML model.~\cite{jung}
 
@@ -522,8 +526,8 @@ all feature values for a single data point. It is often useful to represent all 
 \end{equation*}
 %
 The label of the $i$th data point is denoted by $y_i$, and by extension, all labels in the dataset are represented in the label vector
-$\bm{y} = [y_1,\hspace{1mm} y_2,\hspace{1mm} \ldots\hspace{1mm},\hspace{1mm} y_m]^T$. In the scope of this thesis, we will only consider a single label at a time in order to avoid higher
-dimensional label matrices.
+$\bm{y} = [y_1,\hspace{1mm} y_2,\hspace{1mm} \ldots\hspace{1mm},\hspace{1mm} y_m]^T$. This notation is used for \textit{observed} labels, while quantities \textit{predicted} by a model are referred
+to using $\hat{y}$. In the scope of this thesis, we will only consider a single label at a time in order to avoid higher dimensional label matrices.
 
 \subsection{Random Forest regression}
 
@@ -541,7 +545,7 @@ depicted in Figure \ref{fig:dt_example}.
 %
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.7\textwidth]{images/dt_example.jpg}
+  \includegraphics[width=0.8\textwidth]{images/dt_example.jpg}
   \caption{\label{fig:dt_example}A graph representation of a simple decision tree.}
 \end{figure}
 %
@@ -619,7 +623,7 @@ The second, alternative modeling approach is Bayesian Linear Regression. It is a
 of prior distributions, in addition to some metrics for uncertainty in the predictions. Given the scenario this model is applied to in this thesis, one could argue for BLR to be somewhat "overkill"
 of a choice. However, it goes to demonstrate that also more advanced probabilistic methods are applicable in this context.
 
-\subsubsection{A Bayesian approach to ordinary linear regression}
+\subsubsection{A Bayesian approach to ordinary linear regression} \label{blm}
 
 We start with the familiar model of ordinary linear regression
 %
@@ -658,7 +662,7 @@ prior for a MVG likelihood is also a MVG~\cite{murphy}, we place on the weights 
   \bm{\epsilon} & \sim \mathcal{N}(\bm{0},\beta^{-1}\mathbf{I}), \label{eprior}
 \end{align}
 %
-with $\alpha, \beta$ being hyperparameters interpreted as weight and noise precision, respectively. We can now write the likelihood as
+with $\bm{\mu}_0, \alpha, \beta$ being hyperparameters interpreted as prior weight means, and weight and noise precision, respectively. We can now write the likelihood as
 %
 \begin{equation}\label{likel}
   p(\bm{y}|\bm{w},\beta) = \mathcal{N}(\mathbf{X}\bm{w}, \beta^{-1}\mathbf{I}).
@@ -725,18 +729,74 @@ materials released as CDW during demolition, calculated by domain experts in the
 %
 Here, the three chosen features are area, volume, and number of storeys, the units of the former two being $\text{m}^2$ and $\text{m}^3$, respectively. The four labels are measured in metric tons.
 There are a number of alternative features available, such as categorical variables indicating building type or load bearing material, year of construction, and binary features indicating, whether
-the target building in question is equipped with an elevator or sewer system.
+the target building in question is equipped with an elevator or sewer system. These were, however, left out of this analysis for the sake of computational convenience, as well as the fact that
+there is little to no variance within the categorical features in this minute dataset.
 
 \subsection{Implementation}
 
 Both models were implemented in a Python environment, using different libraries for convenience, namely NumPy~\cite{numpy} for computing and pandas~\cite{pandas} for data processing. In order to
-find optimal hyperparameter values, a grid search was performed on both models' hyperparameters.
+find optimal hyperparameter (HP) configurations, a grid search (e.g. Algorithm \ref{alg:hp_opt}) was performed on both models' hyperparameters.
+In the case of training and test errors, the root-mean-squared error
+\begin{equation}
+  \text{RMSE} = \sqrt{\frac{1}{m}\sum_{i=1}^m(\hat{y}_i-y_i)^2}
+\end{equation}
+was used as a metric for the loss between predicted and actual values.
 
 \subsubsection{Random Forest}
 
-For the Random Forest model, a ready-made implementation in the Scikit-learn library~\cite{sklearn} was used, namely \verb|sklearn.ensemble.RandomForestRegressor|.
+For the Random Forest model, a ready-made implementation in the Scikit-learn library~\cite{sklearn} was used, namely \verb|sklearn.ensemble.RandomForestRegressor|. As Algorithm \ref{alg:id3} states,
+the hyperparameters characterizing the forest are maximum tree depth and minimum number of samples to split. Due to the small size of the dataset and number of features, there are not many sensible
+values for these hyperparameters. Hence, both were given the domain of integers in the interval [2, 5], from which all possible configurations were considered, as per Algorithm \ref{alg:hp_opt}.
+%
+\begin{algorithm}
+  \caption{Grid search for hyperparameter optimization}\label{alg:hp_opt}
+  \begin{algorithmic}[1]
+    \State Define a space of possible values for each HP
+    \State best error $\gets$ inf
+    \For{every possible HP configuration}
+    \State Fit the model $k$ times with different train-test splits
+    \State Compute the test error for each fit
+    \If{average test error < best error}
+    \State best error $\gets$ average test error
+    \State best HP configuration $\gets$ current HP configuration
+    \EndIf
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}
+%
+To avoid correlation between the individual decision trees, only two of the three features
+were randomly chosen at each split.
 
-\subsubsection{BLR}
+\subsubsection{Bayesian Linear Regression}
+
+In contrast to the Random forest model, no existing implementations were used for BLR, but the model was built "from scratch". Searching for the hyperparameters defined in section \ref{blm} is not
+as trivial as was the case with the Random forest. It is hard to make any educated guesses on the prior mean vector $\bm{\mu}_0$ of the regression weights, because the weights are difficult to
+interpret for the human mind. We can, however, work around this.
+
+Due to the small size and relatively large variance of the dataset, it is reasonable to set
+weakly to non-informative priors, i.e. not guide the model too much in any direction. This translates into choosing extremely small precisions $\alpha, \beta$, or large variances for the weights and errors.
+This also decreases the effect of $\bm{\mu}_0$, which we can now set to equal the zero vector $\bm{0}$.
+
+For the grid search, the following HP domain was considered:
+%
+\begin{equation*}
+  \alpha, \beta \in \left[10^{-6}, 10^{-4}\right].
+\end{equation*}
+%
+The optimization routine also differed from Algorithm \ref{alg:hp_opt} in the metric for the "goodness" of a fit. Instead of measuring test error, each fit was judged by how well it explains the
+training data, i.e. by its log-likelihood. For the exact expression, the equation for log-likelihood with additive Gaussian noise derived by Barber~\cite{barber}
+%
+\begin{equation}
+  \log (\mathcal{D}|\Gamma) = -\frac{\beta}{2}\sum_{i=1}^m y_i^2 + \bm{d}^T\bm{\Sigma^{-1}}\bm{d}
+  - \log \det(\bm{\Sigma})+n\log(\alpha) + m\log(\beta)-m\log(2\pi)
+\end{equation}
+%
+was used. Here $\Gamma$ denotes the model parameters, and
+%
+\begin{equation*}
+  \bm{d} = \beta\sum_{i=1}^m \bm{x}_i y_i.
+\end{equation*}
+%
 
 \clearpage
 
@@ -745,8 +805,223 @@ For the Random Forest model, a ready-made implementation in the Scikit-learn lib
 % Contribution: 10\%
 % Order of work: 3/6
 
-\subsection{Methods and results of model testing}
+This chapter summarizes the results of training and testing both the RF and BLR models on the Vattuniemi data described in \ref{data}. For model performance metrics, training and test errors,
+as well as the coefficient of determination $R^2$ were used. Additionally, the difference between training and test error was observed as an indicator of overfitting.
 
+Concerning $R^2$, an exact definition has to be supplied in order to avoid ambiguity. Describing how well the model in question is able to explain the data at hand, $R^2 \in \left[ 0, 1 \right]$
+is usually defined such that $R^2=0$ indicates a baseline equivalent to predicting the mean of the data in all cases, and $R^2=1$ implies a 100\% accuracy, i.e. that the model is able to fully
+explain the data. To achieve comparability, a definition compatible with Bayesian models was used here. It was suggested by Gelman et. al.~\cite{gelman}, and is based on prediction and residual
+variances:
+%
+\begin{equation}
+  R^2 = \frac{\text{Var}(\hat{\bm{y}})}{\text{Var}(\hat{\bm{y}}) + \text{Var}(\bm{y}-\hat{\bm{y}})}
+\end{equation}
+%
+
+\subsection{Random forest}
+
+For the Random Forest model, grid search yielded a hyperparameter configuration of (2, 2), denoting maximum tree depth and minimum split size, respectively.
+Due to high result variance
+with respect to the train-test split, each configuration was tested by averaging over 10 different splits, i.e. $k=10$ in terms of Algorithm \ref{alg:hp_opt}, with
+a 70\% to 30\% train-test ratio. Using the optimal
+HP configuration, 100 RF's were trained and tested, using a different split every time. Figure \ref{fig:rf_testruns} shows the result of six randomly selected runs, with the estimated
+amount of concrete plotted as a function of target building area (the other two features were ignored here due to visual convenience). Model diagnostics are depicted in
+Figure \ref{fig:rf_diagnostics}.
+
+\subsection{Bayesian Linear Regression}
+In the case of BLR, the HP optimization routine resulted in $\alpha = 3.4 \cdot 10^{-5}$ and $\beta = 10^{-4}$. Similarly to RF, each configuration was averaged over $k=10$
+70\% to 30\% train-test splits. Results and diagnostics of analogous test runs can be seen in Figures \ref{fig:blr_testruns} and \ref{fig:blr_diagnostics}.
+
+\subsection{Comparison}
+
+A thorough discussion of the above results will follow in \ref{res_disc}, but let us make a few first remarks here. It is fairly obvious that both models show
+strong variation in the results across train-test splits. In addition to that, we notice that the the test error tends to be greater than the training error for
+both models (\ref{fig:rf_diff} and \ref{fig:blr_diff}), which indicates overfitting.~\cite{jung} However, the quantity of most interest is the coefficient
+of determination $R^2$, as it can be viewed as a metric for the "goodness" of a fit.
+
+In order to be able to compare the two models on a single glance, it is useful to summarize the resulting $R^2$ scores of fitting both models
+with 100 different splits (\ref{fig:rf_rsq} and \ref{fig:blr_rsq}) in two separate histograms. These can be observed in Figure \ref{fig:rsq_comparison}. Considering
+that the $R^2$ values of the Random forests fall between 0.4 and 0.8, while the scores of the BLR fits remain between 0.2 and 0.45, it is safe to conclude, that
+on this dataset, the Random forest is able to explain the data better than Bayesian linear regression.
+%
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth, keepaspectratio]{images/RF_rsq_hist.PNG}
+    \caption{$R^2$ histogram for RF}
+    \label{fig:rf_rsq_hist}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth, keepaspectratio]{images/BLR_rsq_hist.PNG}
+    \caption{$R^2$ histogram for BLR}
+    \label{fig:blr_rsq_hist}
+  \end{subfigure}
+
+  \caption{$R^2$ comparison between RF and BLR}
+  \label{fig:rsq_comparison}
+\end{figure}
+%
+
+%
+\begin{figure}[h]
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/RF_testplot_1.PNG}
+    \caption{RF test run 1}
+    \label{fig:rf_run1}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/RF_testplot_2.PNG}
+    \caption{RF test run 2}
+    \label{fig:rf_run2}
+  \end{subfigure}
+
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/RF_testplot_3.PNG}
+    \caption{RF test run 3}
+    \label{fig:rf_run3}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/RF_testplot_4.PNG}
+    \caption{RF test run 4}
+    \label{fig:rf_run4}
+  \end{subfigure}
+
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/RF_testplot_5.PNG}
+    \caption{RF test run 5}
+    \label{fig:rf_run5}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/RF_testplot_6.PNG}
+    \caption{RF test run 6}
+    \label{fig:rf_run6}
+  \end{subfigure}
+  \caption{Six randomly selected test runs of the 100 RF models fitted on the Vattuniemi data.}
+  \label{fig:rf_testruns}
+\end{figure}
+%
+
+%
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/RF_diagnostics_tr_err.PNG}
+    \caption{Training errors}
+    \label{fig:rf_tr_err}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/RF_diagnostics_tst_err.PNG}
+    \caption{Test errors}
+    \label{fig:rf_tst_err}
+  \end{subfigure}
+
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/RF_diagnostics_err_diff.PNG}
+    \caption{Difference between training and test errors}
+    \label{fig:rf_diff}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/RF_diagnostics_rsq.PNG}
+    \caption{Coefficient of determination $R^2$}
+    \label{fig:rf_rsq}
+  \end{subfigure}
+
+  \caption{Model diagnostics on the 100 RF test runs}
+  \label{fig:rf_diagnostics}
+\end{figure}
+%
+
+%
+\begin{figure}[h]
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/BLR_testplot_1.PNG}
+    \caption{BLR test run 1}
+    \label{fig:blr_run1}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/BLR_testplot_2.PNG}
+    \caption{BLR test run 2}
+    \label{fig:blr_run2}
+  \end{subfigure}
+
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/BLR_testplot_3.PNG}
+    \caption{BLR test run 3}
+    \label{fig:blr_run3}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/BLR_testplot_4.PNG}
+    \caption{BLR test run 4}
+    \label{fig:blr_run4}
+  \end{subfigure}
+
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/BLR_testplot_5.PNG}
+    \caption{BLR test run 5}
+    \label{fig:blr_run5}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/BLR_testplot_6.PNG}
+    \caption{BLR test run 6}
+    \label{fig:blr_run6}
+  \end{subfigure}
+  \caption{Six randomly selected test runs of the 100 BLR models fitted on the Vattuniemi data.}
+  \label{fig:blr_testruns}
+
+\end{figure}
+%
+
+%
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/BLR_diagnostics_tr_err.PNG}
+    \caption{Training errors}
+    \label{fig:blr_tr_err}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/BLR_diagnostics_tst_err.PNG}
+    \caption{Test errors}
+    \label{fig:blr_tst_err}
+  \end{subfigure}
+
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/BLR_diagnostics_err_diff.PNG}
+    \caption{Difference between training and test errors}
+    \label{fig:blr_diff}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/BLR_diagnostics_rsq.PNG}
+    \caption{Coefficient of determination $R^2$}
+    \label{fig:blr_rsq}
+  \end{subfigure}
+
+  \caption{Model diagnostics on the 100 BLR test runs}
+  \label{fig:blr_diagnostics}
+\end{figure}
+%
 
 \clearpage
 
@@ -755,7 +1030,7 @@ For the Random Forest model, a ready-made implementation in the Scikit-learn lib
 % Contribution: 35\%
 % Order of work: 4/6
 
-\subsection{Interpreting the modeling results}
+\subsection{Interpreting the modeling results} \label{res_disc}
 
 
 

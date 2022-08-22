@@ -62,7 +62,7 @@
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/"> 
    <dc:format>application/pdf</dc:format> 
-   <dc:title><rdf:Alt><rdf:li xml:lang="x-default">Title TBD</rdf:li></rdf:Alt></dc:title>
+   <dc:title><rdf:Alt><rdf:li xml:lang="x-default">Towards a data-driven circular economy: the potential of predicting material streams in the Finnish construction industry</rdf:li></rdf:Alt></dc:title>
    <dc:creator><rdf:Seq><rdf:li>Joel Himanen</rdf:li></rdf:Seq></dc:creator>
    <dc:rights><rdf:Alt><rdf:li xml:lang="x-default">Copyright © 2022 Joel Himanen</rdf:li></rdf:Alt></dc:rights>
    <dc:description><rdf:Alt><rdf:li xml:lang="x-default"> Your abstract in English. Keep the abstract short. The abstract explains your research topic, the methods you have used, and the results you obtained. In the PDF/A format of this thesis, in addition to the abstract page, the abstract text is written into the pdf file's metadata. Write here the text that goes into the metadata. The metadata cannot contain special characters, linebreak or paragraph break characters, so these must not be used here. If your abstract does not contain special characters and it does not require paragraphs, you may take advantage of the abstracttext macro (see the comment below). Otherwise, the metadata abstract text must be identical to the text on the abstract page. </rdf:li></rdf:Alt></dc:description>
@@ -80,9 +80,9 @@
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/"> 
    <xmp:CreatorTool>LaTeX with hyperref</xmp:CreatorTool> 
-   <xmp:ModifyDate>2022-08-17T14:33:02+03:00</xmp:ModifyDate> 
-   <xmp:CreateDate>2022-08-17T14:33:02+03:00</xmp:CreateDate> 
-   <xmp:MetadataDate>2022-08-17T14:33:02+03:00</xmp:MetadataDate> 
+   <xmp:ModifyDate>2022-08-22T16:56:49+03:00</xmp:ModifyDate> 
+   <xmp:CreateDate>2022-08-22T16:56:49+03:00</xmp:CreateDate> 
+   <xmp:MetadataDate>2022-08-22T16:56:49+03:00</xmp:MetadataDate> 
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:xmpRights = "http://ns.adobe.com/xap/1.0/rights/"> 
    <xmpRights:Marked>True</xmpRights:Marked>
@@ -90,7 +90,7 @@
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"> 
    <xmpMM:DocumentID>uuid:C8CFC28F-88E1-7995-E9AD-F6D12EAD346B</xmpMM:DocumentID> 
-   <xmpMM:InstanceID>uuid:F99E4E21-43EA-8399-FC0E-E64162DB7546</xmpMM:InstanceID> 
+   <xmpMM:InstanceID>uuid:6C89345E-4B67-BE63-CC58-DAF850B7E288</xmpMM:InstanceID> 
   </rdf:Description> 
  </rdf:RDF> 
 </x:xmpmeta> 
