@@ -499,7 +499,7 @@ roadmap for proper data aggregation, utilization and sharing in this industry by
 
 \section{The Models} \label{models}
 
-This chapter introduces two distinct modeling approaches, the Random Forest regressor and Bayesian Linear Regression (BLR), to predict demolition material streams using initial knowledge of the target
+This chapter introduces two distinct modeling approaches, the Random forest regressor and Bayesian linear regression (BLR), to predict demolition material streams using initial knowledge of the target
 building. It is imperative to note, that these models are only a proof of concept - they are meant to demonstrate that given proper data, it is possible to use various machine learning algorithms
 to make feasible predictions on different material streams, and thus support the pre-demolition audit process. Hence, these models as such should not be relied on in actual cases.
 
@@ -531,9 +531,9 @@ The label of the $i$th data point is denoted by $y_i$, and by extension, all lab
 $\bm{y} = [y_1,\hspace{1mm} y_2,\hspace{1mm} \ldots\hspace{1mm},\hspace{1mm} y_m]^T$. This notation is used for \textit{observed} labels, while quantities \textit{predicted} by a model are referred
 to using $\hat{y}$. In the scope of this thesis, we will only consider a single label at a time in order to avoid higher dimensional label matrices.
 
-\subsection{Random Forest regression}
+\subsection{Random forest regression}
 
-Introduced by Breiman (2001)~\cite{breiman}, the Random Forest algorithm is a supervised ensemble learning method, that is made up by of a group of decision trees. Decision trees and random forests have
+Introduced by Breiman (2001)~\cite{breiman}, the Random forest algorithm is a supervised ensemble learning method, that is made up by of a group of decision trees. Decision trees and Random forests have
 remained a popular modeling approach because they imitate human reasoning and decision making, and are thus conseptually intuitive. They can be used for classification and regression tasks alike,
 but we will focus on the latter because of the nature of our problem setting.
 
@@ -563,7 +563,7 @@ The algorithm starts with a training set $\mathcal{D}$ and a root node. It then 
 or the size of the resulting subset is small enough ($<l$).
 
 The final question to be cleared is the problem of finding the best possible splitting rule, or decision statement, at each decision node. Generally, the metric for the "goodness" of a split
-is called the \textit{Gain}. Again, there are multiple possibilites when it comes to choosing a Gain function~\cite{shalev-shwartz}, but our choice will be \textit{variance reduction}.
+is called the \textit{Gain}. Again, there are multiple possibilities when it comes to choosing a Gain function~\cite{shalev-shwartz}, but our choice will be \textit{variance reduction}.
 
 Let $\mathcal{D}_0$ be the dataset at the current node, and $\mathcal{D}_i, \mathcal{D}_j$ be its split, such that $\mathcal{D}_i \cap \mathcal{D}_j = \varnothing$
 and $\mathcal{D}_i \cup \mathcal{D}_j = \mathcal{D}_0$. With $\mathcal{Y}$ denoting the set of labels, we can define the (weighted) variance reduction as
@@ -608,20 +608,20 @@ of this thesis, though.
 \subsubsection{Forming the ensemble}
 
 Another way to control overfitting and increase robustness of the Decision Tree model is to grow an ensemble of them and choose the average of all decision tree predictions as the final prediction.
-This method is called the Random Forest. In order to avoid correlated decision trees in the ensemble, the Random Forest algorithm trains each tree using a method called Bagging.~\cite{jung}
+This method is called the Random forest. In order to avoid correlated decision trees in the ensemble, the Random forest algorithm trains each tree using a method called Bagging.~\cite{jung}
 
 The basic concept is to choose the training set for each tree by uniformly sampling a random subset with replacement from the original dataset. Additionally, the Random forest forces each tree to
 always consider only a random subset of features when choosing the best split at every decision node (line 6 of Algorithm \ref{alg:id3}). Introducing these random factors ensures that the
-generalization error of a random forest converges as the number of trees in the forest increases~\cite{breiman}, which makes it a strong tool to control overfitting.
+generalization error of a Random forest converges as the number of trees in the forest increases~\cite{breiman}, which makes it a strong tool to control overfitting.
 
-At this point, the main weakness of the Random Forest becomes evident. Computational complexity quickly becomes a problem, especially as the number of trees increases. Growing a single decision
+At this point, the main weakness of the Random forest becomes evident. Computational complexity quickly becomes a problem, especially as the number of trees increases. Growing a single decision
 tree, especially with a large training set, is a computationally heavy task due to the need to go through all possible splits at each decision node. This effect is amplified when growing a
-random forest, resulting in a theoretical computational complexity of $\mathcal{O}(k\cdot t)$ (excluding unification costs) and memory space cost of $\mathcal{O}(2^k)$, where $k$ is the tree
+Random forest, resulting in a theoretical computational complexity of $\mathcal{O}(k\cdot t)$ (excluding unification costs) and memory space cost of $\mathcal{O}(2^k)$, where $k$ is the tree
 depth and $t$ is the number of trees in the forest.~\cite{sole}
 
-\subsection{Bayesian Linear Regression}
+\subsection{Bayesian linear regression}
 
-The second, alternative modeling approach is Bayesian Linear Regression. It is arguably a slightly more advanced method, and offers the means to include domain knowledge in the model in the form
+The second, alternative modeling approach is Bayesian linear regression. It is arguably a slightly more advanced method, and offers the means to include domain knowledge in the model in the form
 of prior distributions, in addition to some metrics for uncertainty in the predictions. Given the scenario this model is applied to in this thesis, one could argue for BLR to be somewhat "overkill"
 of a choice. However, it goes to demonstrate that also more advanced probabilistic methods are applicable in this context.
 
@@ -730,6 +730,7 @@ materials released as CDW during demolition, calculated by domain experts in the
 \end{table}
 %
 Here, the three chosen features are area, volume, and number of storeys, the units of the former two being $\text{m}^2$ and $\text{m}^3$, respectively. The four labels are measured in metric tons.
+In the test runs, the label of choice was concrete, as it is by far the most significant CDW stream.
 There are a number of alternative features available, such as categorical variables indicating building type or load bearing material, year of construction, and binary features indicating, whether
 the target building in question is equipped with an elevator or sewer system. These were, however, left out of this analysis for the sake of computational convenience, as well as the fact that
 there is little to no variance within the categorical features in this minute dataset.
@@ -743,9 +744,9 @@ In the case of training and test errors, the root-mean-squared error
 \end{equation}
 was used as a metric for the loss between predicted and actual values.
 
-\subsubsection{Random Forest}
+\subsubsection{Random forest}
 
-For the Random Forest model, a ready-made implementation in the Scikit-learn library~\cite{sklearn} was used, namely \verb|sklearn.ensemble.RandomForestRegressor|. As Algorithm \ref{alg:id3} states,
+For the Random forest model, a ready-made implementation in the Scikit-learn library~\cite{sklearn} was used, namely \verb|sklearn.ensemble.RandomForestRegressor|. As Algorithm \ref{alg:id3} states,
 the hyperparameters characterizing the forest are maximum tree depth and minimum number of samples to split. Due to the small size of the dataset and number of features, there are not many sensible
 values for these hyperparameters. Still, a grid search (Algorithm \ref{alg:hp_opt}) with the domain of integers in the interval [2, 5] for both HP's was performed in order to ensure an optimal HP
 configuration. Each configuration was evaluated using Leave-one-out cross-validation (LOOCV), which essentially means taking a single datapoint as a validation set, training the model
@@ -764,12 +765,13 @@ validation errors.
     \State best HP configuration $\gets$ current HP configuration
     \EndIf
     \EndFor
+    \State \Return best HP configuration
   \end{algorithmic}
 \end{algorithm}
 %
 To avoid correlation between the individual decision trees, only two of the three features were randomly chosen at each split.
 
-\subsubsection{Bayesian Linear Regression} \label{blm_impl}
+\subsubsection{Bayesian linear regression} \label{blm_impl}
 
 In contrast to the Random forest model, no existing implementations were used for BLR, but the model was built "from scratch". Regarding the hyperparameter choices described in \ref{blm}, a
 strategy different from grid search was implemented.
@@ -801,13 +803,13 @@ residual variances:
 
 \subsection{Random forest}
 
-For the Random Forest model, grid search yielded a hyperparameter configuration of (3, 2), denoting maximum tree depth and minimum split size, respectively. Using the optimal
+For the Random forest model, grid search yielded a hyperparameter configuration of (3, 2), denoting maximum tree depth and minimum split size, respectively. Using the optimal
 HP configuration, 100 RF's with 200 trees each (the same number of trees was used in HP optimization as well) were trained and tested, using a different 80\% to 20\% train-test split every time.
 Figure \ref{fig:rf_testruns} shows the result of six randomly selected runs, with the estimated
 amount of concrete plotted as a function of target building area (the other two features were ignored here due to visual convenience). Model diagnostics are depicted in
 Figure \ref{fig:rf_diagnostics}.
 
-\subsection{Bayesian Linear Regression}
+\subsection{Bayesian linear regression}
 Due to the choices justified in \ref{blm_impl}, no HP optimization was performed here. But similarly to RF, the model was fitted on 100 different
 80\% to 20\% train-test splits. Results and diagnostics of these test runs can be seen in Figures \ref{fig:blr_testruns} and \ref{fig:blr_diagnostics}.
 
@@ -1014,31 +1016,25 @@ data in the transition towards a more circular economy.
 
 \subsection{Interpreting the results of PoC model testing} \label{res_disc}
 
+First, it has to be stated that this work is quite exploratory. There are no public benchmarks on using ML methods to predict CDW streams based on building traits, so expectations for these models
+were not high to begin with. They were intended only as PoC's, after all. On another note, the dataset we are dealing with here is exceptionally small. Only 16 datapoints are guaranteed not to
+lead to any applicable results in models that usually require at least multiple times that amount of data to perform reasonably well.
+
 Looking at the test results in Figures \ref{fig:rf_diagnostics} and \ref{fig:blr_diagnostics}, it can be concluded straight away, that the magnitude of the test errors is too large for the models
 to be used as such in real scenarios. In context, the actual estimated concrete amounts range from 2000 to 30 000 tons, while the test error magnitudes rarely go under 3000, but can climb up to
 more than 10 000 tons. A predictive model would simply have to do better to be of any actual use in the pre-demolition audit process.
 
-This kind of inaccuracy is to be expected, however. First of all, PoC models rarely are required to perform on realistically applicable levels. This was the case in this project, as well. On
-another note, the dataset we are dealing with here is exceptionally small. Only 16 datapoints are guaranteed not to lead to any applicable results in models that usually require at least multiple
-times that amount of data to perform reasonably well.
-
-Another consequence of a small dataset is the tendency of the models to overfit. This means that the models learn to explain the training data well, but fail to generalize, i.e. predict new
-datapoints. This is manifested as large test errors compared to training errors, as seen in \ref{comparison}. Depending on the model in question, there are several possible ways to try and avoid
+Another consequence of a small dataset is the tendency of the models to overfit. This means that the models learn to explain the training data well, but fail to generalize, i.e. to predict new
+datapoints accurately. This is manifested as large test errors compared to training errors, as seen in \ref{comparison}. Depending on the model in question, there are several possible ways to try and avoid
 overfitting. For example, a RF is less likely to overfit, when the bound for maximum tree depth is lowered. In the case of BLR, on the other hand, an option is to regularize the model by increasing
 prior regression weight variance, i.e. decreasing the hyperparameter $\alpha$. Both of these maneuvres were tried on these models without notable success. Hence, the most likely explanation for
 the tendency to overfit is that there is too little data for the models to generalize. This problem could potentially be alleviated by increasing the proportion of training data to test data.
 This was also attempted, but without success due to the inability to draw reliable conclusions from such little test data.
 
 As a proof of concept, these models manage to do what is required of them, though. Even with such little data, both models clearly outperform baseline predictions. As the most significant problems
-can be explained by the lack of training data, it can be deemed safe to assume that similar ML models would quickly improve with larger datasets. It can thus be concluded, that ML approaches most
-definitely are a feasible tool in the context of predicting CDW streams to support the pre-demolition audit.
+can be explained by the lack of training data, it can be deemed safe to assume that similar ML models would quickly improve with larger datasets.
 
-\subsection{Roadmap for data aggregation and preservation}
-% - Standard for pre-demolition audits and demolition reports (actuals)
-% - Submitted to register with APIs
-% - Same applies for features of new and existing buildings
-% - E.g. Motiva's platform could consume said APIs
-% - DATA SHARING?
+\subsection{Roadmap for data aggregation and storage} \label{aggregation}
 
 As was established in section \ref{pre_dem}, there is not much to build on, when it comes to data utilization in the Finnish construction industry. Hence, we have to begin building from the
 ground up, starting from the question of how to aggregate and store data; predictive modeling only becomes a viable tool when there is enough data to properly train and test the models.
@@ -1056,26 +1052,69 @@ The preivously mentionend public CDW data register would serve as a logical plac
 Considering the data even more closely, it is worth to also question what goes into the pre-demolition audits and actuals. Recalling that one of the most significant obstacles hindering CE in the
 construction industry is the lack of temporal alignment of demand and supply in the non-virgin material market, it is noteworthy that a temporal aspect in CDW data is currently absent
 in both pre- and post-demolition reporting. Hence, a key development point in CDW data aggregation is to start including estimates of temporal distributions for the released material streams in
-pre-demolition audits. Practically, this means stating for each material stream, at which time points during the demolition project a batch of that material would be available, and how large those
-batches would be. Demolition projects can span several months, so it would be an oversimplification to assume that each material batch would be released as a single batch at the end of the project.
-Improving these estimates naturally requires that the realized temporal distributions are also properly reported in order to grow a base of quality data for training more sophisticated
-predictive models.
+pre-demolition audits. Practically, this means stating for each material stream, at which time points during the demolition project a batch of that material would be available, in addition to
+how large those batches would be. Demolition projects can span several months, so it would be an oversimplification to assume that each material batch would be released as a single batch at
+the end of the project. Improving these estimates naturally requires that the realized temporal distributions are also properly reported in order to grow a base of quality data for training more
+sophisticated predictive models.
 
-Another challenge lies with obtaining the features, i.e. basic knowledge of the target buildings themselves. As stated before, the older end of the Finnish building base is not very well documented,
-and even in the case of newer buildings, the data is quite scattered and not easily accessible. Streamlining and gathering the data on existing real estate under one roof, and even more importantly,
-developing the standards for documenting and storing data on new buildings are important factors in making the operating model more circular. It is also crucial not to forget that the structures of
-buildings change during their lifetime due to e.g. renovations. These changes have to be documented the same as during construction in order to preserve actual information on the building. All in all,
-it is necessary to aggregate accurate data on buildings during their whole life cycle, and store it in a way that it is accessible through APIs, for example.
+Compared to demolition data, the features, i.e. basic knowledge of target buildings, is much more available. For example, the National Land Survey of Finland maintains a public real estate register,
+from which anybody can access building data through REST APIs. On the other hand, due to a lack in documentation especially on the older side of the Finnish real estate base, the data is often
+incomplete. It is also crucial not to forget that the structures of buildings change during their lifetime due to e.g. renovations. According to experts, it often happens (less today than a
+few decades ago) that these changes are not properly documented and the data in the real estate register updated, which then leads to the risk of using incorrect data in the pre-demolition audit.
+Therefore, these changes have to be documented the same as during construction in order to preserve actual information on the building. All in all, it is crucial to uphold good quality standards
+in documentation and reporting during the whole building life cycle in order to ensure accurate data.
 
-\subsection{Further research topics: what happens next?}
+\subsection{New opportunities}
 
-% - Temporal distribution and its significance: are quantities irrelevant?
-% - Feature engineering and sensitivity analysis
-% - The reuse loop
+The CE transition tends to have the effect of inducing numerous business cases, that in turn create opportunities for existing businesses and startups alike. In the case of the construction industry,
+this transition will create opportunities in the field for example for recycling operators, demolition contractors specialized in non-destructive demolition and recycling, and specialized retailers
+that, for example, acquire materials from demolition sites for refinement and reselling.
+
+Assuming a different point of view, new possibilities present themselves in the area of data and analytics, as well. The platform project of Motiva (\ref{motiva}) is a concrete example of how these
+possibilities can be utilized. Provided that data aggregation standards develop in the way suggested in \ref{aggregation}, Motiva, in addition to other possible platforms and services, will have
+the opportunity to plug into different public registers and databases, combining demolition, real estate, and other data sources to create new insights and value. Possibilities include news and
+information sharing in the CE field, refining CDW data by combining it with e.g. material attributes and data about their environmental impact, modifying pre-demolition audits, post-demolition
+reports and other documents into directly usable data, and all the countless modeling and analytics services these data sources enable.
+
+\subsection{Further research topics: what should be prioritized?}
+
+Due to the exploratory nature of this thesis, a significant part of its contribution is comprised of suggestions for further areas of research. The following topics are important points of focus
+that should be addressed next, as research in this field advances and more data is aggregated.
+
+\subsubsection{Significance of the temporal distribution}
+
+Coming back to the alignment problem of supply and demand, the temporal distribution of CDW streams should be a priority research topic as the datasets available start to reach sufficient sizes.
+It could even be considered reasonable to postulate, that the ability to accurately predict batch sizes is considerabely less relevant compared to the readiness to give estimates of the points
+in time they are released at. The reasoning is that having even a rough knowledge of these time points beforehand makes it possible for entities on the demand side to collect the materials as
+soon as they are released, saving the demolition contractor from significant storage costs.
+
+A challenge, on the other hand, is that often pre-demolition audits are carried out before demolition permits are given, which in
+turn means that the starting time of the demolition project is likely to be unknown during the audit. However, the temporal distributions can always be given relative to the starting time of the
+demolition project, that is, time points can be given as days after start, rather than strict dates. The dates can then be immediately calculated when the starting date is set.
+
+\subsubsection{Feature engineering and sensitivity analysis}
+
+The question of feature significance was conciously left out of the scope of this thesis, mainly due to the lack of data. It is an extremely important area to explore further, though. The PoC models
+showed that predicting only the amounts of CDW should not require many features. This could potentially not be the case when predicting the temporal CDW distributions, or the amounts of reusable
+components. Therefore, aggregating accurate data of real estate during the whole lifecycle, as discussed in \ref{aggregation}, is an important way of maintaining a variety of features to choose
+from and to experiment on.
+
+As the amount of data grows, it becomes possible to perform sensitivity analysis on feature selection, finding out how changing the feature configurations affect the prediction of different targets.
+Models could start incorporating categorical features, like load bearing material or façade material, that are likely to improve prediction accuracy. Another point of interest is the question
+of the effect building type (office, storage, etc.) has on the model. A possible explanation for the scattered nature of the dataset used to train the PoC models is the fact that no distinction
+between building type was made. Taking the type into account as a categorical feature could help to cluster the dataset and increase prediction accuracy.
+
+\subsubsection{The reuse loop}
+
+This far, we have focused on predicting only an individual CDW stream, namely concrete, in order to potentially improve its recycling rate. As stated in \ref{ce}, though, the potential impact of
+the reuse loop is much more significant than that of the recycle loop. It would therefore be sensible to shift more focus on trying to extract as many components as whole units before destructive
+demolition. Collaboration between pre-demolition auditors, recycling operators, and demolition contractors is key in working towards this, because reusable components are extracted both before
+and during demolition. Improving predictive capabilities in this area would support this work in giving recycling operators and demolition contractors some prior insight on what the target
+building contains, instead of them having to go in blind and providing the demand side with the information as the component extraction proceeds.
 
 \clearpage
 
-\section{Summary}
+\section{Conclusions}
 
 % Contribution: 5\%
 % Order of work: 5/6
