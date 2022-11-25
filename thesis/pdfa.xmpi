@@ -62,13 +62,15 @@
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/"> 
    <dc:format>application/pdf</dc:format> 
-   <dc:title><rdf:Alt><rdf:li xml:lang="x-default">Towards a data-driven circular economy: the potential of predicting material streams in the Finnish construction industry</rdf:li></rdf:Alt></dc:title>
+   <dc:title><rdf:Alt><rdf:li xml:lang="x-default">Towards a data-driven circular economy: predicting material streams in the construction industry</rdf:li></rdf:Alt></dc:title>
    <dc:creator><rdf:Seq><rdf:li>Joel Himanen</rdf:li></rdf:Seq></dc:creator>
    <dc:rights><rdf:Alt><rdf:li xml:lang="x-default">Copyright © 2022 Joel Himanen</rdf:li></rdf:Alt></dc:rights>
-   <dc:description><rdf:Alt><rdf:li xml:lang="x-default"> Your abstract in English. Keep the abstract short. The abstract explains your research topic, the methods you have used, and the results you obtained. In the PDF/A format of this thesis, in addition to the abstract page, the abstract text is written into the pdf file's metadata. Write here the text that goes into the metadata. The metadata cannot contain special characters, linebreak or paragraph break characters, so these must not be used here. If your abstract does not contain special characters and it does not require paragraphs, you may take advantage of the abstracttext macro (see the comment below). Otherwise, the metadata abstract text must be identical to the text on the abstract page. </rdf:li></rdf:Alt></dc:description>
-   <dc:subject><rdf:Bag><rdf:li>Insert</rdf:li>
-     <rdf:li>Keywords</rdf:li>
-     <rdf:li>Here</rdf:li></rdf:Bag></dc:subject>
+   <dc:description><rdf:Alt><rdf:li xml:lang="x-default"> The arguably inevitable transition from linear, "take-make-dispose" economies to more circular economy models is happening with an accelerating pace on a global scale. Nevertheless, this transition is still in an early phase. Societies and industries are struggling on multiple different fronts with looping material disposal streams efficiently back to the earlier stages of their value chain. Digitalization and data-driven tools and strategies have the potential to be a vital part of the solutions that will support us through this transition. This thesis sets out to explore the relationship between digitalization and the circular economy transition. It takes the Finnish construction industry as an example environment of this transition, and suggests ways to solve the problem of aligning supply with demand in the market of non-virgin construction materials by predicting construction and demolition waste streams. This is achieved by developing two distinct, machine learning based proof of concept models (Random forest and Bayesian linear regression) that use general target building information as features to predict the amount of concrete released from demolishing the building in question. The purpose of these models is only to show the feasability of machine learning approaches to this problem. Both models are trained and tested on a minimal, close to realistic dataset obtained from pre-demolition audits of an actual demolition site. Using the coefficient of determination as a predictive performance metric, both models significantly outperform a baseline of predicting the data mean in every case. Moreover, the Random forest approach seems to outperform Bayesian linear regression. These results suggest that machine learning models indeed are a feasible approach to predict the material streams in question. However, data on actual realized waste amounts in demolition projects is not available in the amounts required to train a production level model. Hence, aggregating detailed demolition reports and pre-demolition audits in a nation-wide, collective register is recommended as a point of action to increase the data-readiness of the construction industry. </rdf:li></rdf:Alt></dc:description>
+   <dc:subject><rdf:Bag><rdf:li>Circular economy</rdf:li>
+     <rdf:li>Construction and demolition waste</rdf:li>
+     <rdf:li>Machine learning</rdf:li>
+     <rdf:li>Random forest</rdf:li>
+     <rdf:li>Bayesian linear regression</rdf:li></rdf:Bag></dc:subject>
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:prism="http://prismstandard.org/namespaces/basic/2.2/"> 
   </rdf:Description> 
@@ -80,9 +82,9 @@
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/"> 
    <xmp:CreatorTool>LaTeX with hyperref</xmp:CreatorTool> 
-   <xmp:ModifyDate>2022-08-31T13:59:40+03:00</xmp:ModifyDate> 
-   <xmp:CreateDate>2022-08-31T13:59:40+03:00</xmp:CreateDate> 
-   <xmp:MetadataDate>2022-08-31T13:59:40+03:00</xmp:MetadataDate> 
+   <xmp:ModifyDate>2022-11-25T11:33:58+02:00</xmp:ModifyDate> 
+   <xmp:CreateDate>2022-11-25T11:33:58+02:00</xmp:CreateDate> 
+   <xmp:MetadataDate>2022-11-25T11:33:58+02:00</xmp:MetadataDate> 
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:xmpRights = "http://ns.adobe.com/xap/1.0/rights/"> 
    <xmpRights:Marked>True</xmpRights:Marked>
@@ -90,7 +92,7 @@
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"> 
    <xmpMM:DocumentID>uuid:C8CFC28F-88E1-7995-E9AD-F6D12EAD346B</xmpMM:DocumentID> 
-   <xmpMM:InstanceID>uuid:001A7807-536C-420B-FE6E-F0688150E68F</xmpMM:InstanceID> 
+   <xmpMM:InstanceID>uuid:C0BD920C-08B5-2A37-3A65-638911258FF2</xmpMM:InstanceID> 
   </rdf:Description> 
  </rdf:RDF> 
 </x:xmpmeta> 

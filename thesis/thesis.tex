@@ -80,7 +80,7 @@
 %% argument in box brackets. This is done because the title is part of the 
 %% metadata in the pdf/a file, and the metadata cannot contain linebreaks.
 %%
-\thesistitle{Towards a data-driven circular economy: the potential of predicting material streams in the Finnish construction industry}
+\thesistitle{Towards a data-driven circular economy: predicting material streams in the construction industry}
 %\thesistitle[Title of the thesis]{Title of\\ the thesis}
 %%
 
@@ -123,22 +123,34 @@
 %% Thesis keywords:
 %% Note! The keywords are separated using the \spc macro
 %%
-\keywords{Insert\spc Keywords\spc Here}
+\keywords{Circular economy\spc Construction and demolition waste\spc Machine learning\spc Random forest\spc Bayesian linear regression}
 %%
 
 %% The abstract text. This text is included in the metadata of the pdf file as well
 %% as the abstract page.
 %%
 \thesisabstract{
-Your abstract in English. Keep the abstract short. The abstract explains your 
-research topic, the methods you have used, and the results you obtained. In the 
-PDF/A format of this thesis, in addition to the abstract page, the abstract text is 
-written into the pdf file's metadata. Write here the text that goes into the 
-metadata. The metadata cannot contain special characters, linebreak or paragraph 
-break characters, so these must not be used here. If your abstract does not contain 
-special characters and it does not require paragraphs, you may take advantage of 
-the abstracttext macro (see the comment below). Otherwise, the metadata abstract 
-text must be identical to the text on the abstract page.
+  The arguably inevitable transition from linear, "take-make-dispose" economies to more circular economy models is
+  happening with an accelerating pace on a global scale. Nevertheless, this transition is still in an
+  early phase. Societies and industries are struggling on multiple different fronts with looping
+  material disposal streams efficiently back to the earlier stages of their value chain. Digitalization
+  and data-driven tools and strategies have the potential to be a vital part of the solutions that will
+  support us through this transition.
+  This thesis sets out to explore the relationship between digitalization and the circular economy transition.
+  It takes the Finnish construction industry as an example environment of this transition, and suggests ways to solve
+  the problem of aligning supply with demand in the market of non-virgin construction materials by predicting construction and
+  demolition waste streams. This is achieved by developing two distinct, machine learning based proof of concept models
+  (Random forest and Bayesian linear regression) that use general target building information as features to predict the amount
+  of concrete released from demolishing the building in question. The purpose of these models is only to show the feasability
+  of machine learning approaches to this problem.
+  Both models are trained and tested on a minimal, close to realistic dataset obtained from pre-demolition audits of an actual
+  demolition site. Using the coefficient of determination as a predictive performance metric, both models significantly
+  outperform a baseline of predicting the data mean in every case. Moreover, the Random forest approach seems to outperform
+  Bayesian linear regression. These results suggest that machine learning models indeed are a feasible approach to predict
+  the material streams in question. However, data on actual realized waste amounts in demolition projects is not available
+  in the amounts required to train a production level model. Hence, aggregating detailed demolition reports and pre-demolition
+  audits in a nation-wide, collective register is recommended as a point of action to increase the data-readiness of the
+  construction industry.
 }
 
 %% Copyright text. Copyright of a work is with the creator/author of the work
@@ -193,18 +205,29 @@ text must be identical to the text on the abstract page.
 %% above.
 %%
 \begin{abstractpage}[english]
-  Your abstract in English. Keep the abstract short. The abstract explains your
-  research topic, the methods you have used, and the results you obtained.
+  The arguably inevitable transition from linear, "take-make-dispose" economies to more circular economy models is
+  happening with an accelerating pace on a global scale. Nevertheless, this transition is still in an
+  early phase. Societies and industries are struggling on multiple different fronts with looping
+  material disposal streams efficiently back to the earlier stages of their value chain. Digitalization
+  and data-driven tools and strategies have the potential to be a vital part of the solutions that will
+  support us through this transition.
 
-  The abstract text of this thesis is written on the readable abstract page as
-  well as into the pdf file's metadata via the $\backslash$thesisabstract macro
-  (see above). Write here the text that goes onto the readable abstract page.
-  You can have special characters, linebreaks, and paragraphs here. Otherwise,
-  this abstract text must be identical to the metadata abstract text.
+  This thesis sets out to explore the relationship between digitalization and the circular economy transition.
+  It takes the Finnish construction industry as an example environment of this transition, and suggests ways to solve
+  the problem of aligning supply with demand in the market of non-virgin construction materials by predicting construction and
+  demolition waste streams. This is achieved by developing two distinct, machine learning based proof of concept models
+  (Random forest and Bayesian linear regression) that use general target building information as features to predict the amount
+  of concrete released from demolishing the building in question. The purpose of these models is only to show the feasability
+  of machine learning approaches to this problem.
 
-  If your abstract does not contain special characters and it does not require
-  paragraphs, you may take advantage of the abstracttext macro (see the comment
-  below).
+  Both models are trained and tested on a minimal, close to realistic dataset obtained from pre-demolition audits of an actual
+  demolition site. Using the coefficient of determination as a predictive performance metric, both models significantly
+  outperform a baseline of predicting the data mean in every case. Moreover, the Random forest approach seems to outperform
+  Bayesian linear regression. These results suggest that machine learning models indeed are a feasible approach to predict
+  the material streams in question. However, data on actual realized waste amounts in demolition projects is not available
+  in the amounts required to train a production level model. Hence, aggregating detailed demolition reports and pre-demolition
+  audits in a nation-wide, collective register is recommended as a point of action to increase the data-readiness of the
+  construction industry.
 \end{abstractpage}
 
 %% The text in the \thesisabstract macro is stored in the macro \abstractext, so
@@ -219,22 +242,42 @@ text must be identical to the text on the abstract page.
 %%
 \newpage
 %%
-%% Abstract in Finnish.  Delete if you don't need it. 
+%% Abstract in Finnish. Delete if you don't need it. 
 %%
-\thesistitle{Otsikko suomeksi}
+\thesistitle{Kohti datavetoista kiertotaloutta: rakennusalan materiaalivirtojen ennustaminen}
 \supervisor{Prof.\ Alexander Jung}
 \advisor{TkT Sami Jokela}
 \advisor{Prof. Marko Turpeinen}
-\degreeprogram{Selvitä}
+\degreeprogram{Computer, Communication and Information Sciences}
 %\department{Elektroniikan ja nanotekniikan laitos}
-\major{Selvitä}
+\major{Machine Learning, Data Science and Artificial Intelligence}
 %% The keywords need not be separated by \spc now.
-\keywords{avainsana1, avainasana2}
+\keywords{Kiertotalous\spc Purkujäte\spc Koneoppiminen\spc Satunnaismetsä\spc Bayesilainen lineaarinen regressio}
 %% Abstract text
 \begin{abstractpage}[finnish]
-  Tiivistelmässä on lyhyt selvitys
-  kirjoituksen tärkeimmästä sisällöstä: mitä ja miten on tutkittu,
-  sekä mitä tuloksia on saatu.
+  Nykyisin jo väistämättömänä pidetty siirtyminen lineaaritalouksista kiertotalouden malleihin
+  on käynnissä maailmanlaajuisesti, ja sen vauhti on kiihtyvä. Tämä siirtymä on kuitenkin vasta
+  varhaisessa vaiheessa. Yhteiskunnat ja toimialat kamppailevat useilla eri rintamilla kytkeäkseen
+  materiaalien hävikkivirrat takaisin niiden arvoketjujen aiempiin vaiheisiin mahdollisimman tehokkaasti.
+  Tämän siirtymän tukemisessa ja vauhdittamisessa digitalisaatio, sekä datavetoiset työkalut
+  ja strategiat ovat eittämättä ratkaisevassa roolissa.
+
+  Tämän diplomityön tarkoituksena on tutkia digitalisaation ja kiertotaloussiirtymän välistä suhdetta.
+  Työssä tarkastellaan suomalaista rakennusteollisuutta esimerkkiympäristönä ja esitetään purkujätevirtojen
+  ennustamista ratkaisuksi erityisesti ei-neitseellisten rakennusmateriaalien kysynnän ja tarjonnan kohtaanto-ongelmiin.
+  Esitys perustellaan kehittämällä kaksi erilaista, koneoppimiseen perustuvaa konseptitodistusmallia
+  (satunnaismetsä ja Bayesilainen lineaarinen regressio), jotka käyttävät yleisiä kohderakennustietoja selittävinä muuttujina
+  k.o. rakennuksen purkamisesta vapautuvan betonin määrän ennustamiseen. Näiden mallien tarkoitus ei ole olla suoraan sovellettavissa,
+  vaan osoittaa koneoppimispohjaisten mallien olevan lähtökohtaisesti käyttökelpoisia tämänkaltaisten ongelmien ratkaisemiseen.
+
+  Molemmat mallit koulutettiin ja testattiin hyvin pienikokoisella, lähestulkoon realistisella datajoukolla, joka on johdettu
+  oikeista purkukartoituksista. Käyttämällä determinaatiokerrointa ennustustarkkuuden mittarina todettiin molempien mallien
+  ennustuskyvyn olevan merkittävästi vertailutasoa (datajoukon keskiarvon ennustaminen kaikissa tapauksissa) parempi.
+  Lisäksi todettiin satunnaismetsämenetelmän toimivan Bayesilaista lineaarista regressiota paremmin.
+  Nämä tulokset viittaavat siihen, että koneoppimismallit ovat lähtökohtaisesti kelvollisia näiden materiaalivirtojen ennustamiseen.
+  Tietoa purkuhankkeiden toteutumista ei kuitenkaan tällä hetkellä ole laajemmin saatavilla, puhumattakaan tuotantotasoisten mallien
+  kouluttamiseen tarvittavista määristä. Näin ollen yksityiskohtaisten purkutoteumien ja -kartoitusten tuomista kollektiiviseen,
+  maanlaajuiseen rekisteriin suositellaan toimenpiteeksi rakennusteollisuuden datavalmiuksien parantamiseksi.
 \end{abstractpage}
 
 
@@ -292,6 +335,16 @@ Otaniemi, 31.12.2022
 
 \mysection{Acknowledgements}
 
+In addition to the advisors and supervisor, the author is indebted to the following people and organizations for providing valuable insights into the world of construction and demolition:
+
+\begin{itemize}
+  \item Elli Kinnunen, \textit{A-Insinöörit}
+  \item Aki Finér, \textit{Motiva}
+  \item Ella Lahtinen, \textit{Green Building Council Finland}
+  \item Harri Hakaste, \textit{Finnish Ministry of the Environment}
+  \item Anni Tyni, \textit{City of Helsinki}
+\end{itemize}
+
 %% Leave page number of the first page empty
 \thispagestyle{empty}
 
@@ -299,24 +352,33 @@ Otaniemi, 31.12.2022
 
 \section{Introduction} \label{intro}
 
-% Contribution: 5\%
-% Order of work: 6/6
+Circular economy (CE) models are a key factor in how we change the foundations of our societal and economical structures in order to fight environmental crises, and make life on our planet sustainable.
+Taking the streams of material disposal and looping them around to feed back into the value chain is one of the most promising ways to decouple growth from resource constraints, and thus reduce
+virgin natural resource extraction to a sustainable level.~\cite{wef} The construction industry, being one of the most significant $\text{CO}_2$ emitters, is an interesting example of a field, where
+the transition to more circular operating models is just starting to take shape. It is also a field that is on the more conservative side from the point of view of digitalization.
+That is to say, that e.g. data-driven strategies and operating models have not yet spread through the industry, as they have done in numerous others. This implies a significant unused potential,
+that could be a decisive factor in supporting the industry through the transitions to come.
 
-Research questions:
-
+This thesis attempts to clarify ways in which the construction industry could harness the yet untapped potential of data, focusing on the supply of non-virgin materials salvaged from
+construction and demolition waste (CDW), and specifically the problem of aligning that supply with the demand. A key challenge is estimating CDW streams before a demolition project commences, which
+is why the problem is approached with machine learning (ML) models, guided by the following research questions:
+%
 \begin{itemize}
-  \item To what extent is ML-based predictive modeling feasible in the context of CDW streams?
-  \item What does this imply in terms of data aggregation and storage?
+  \item \textit{Is ML-based predictive modeling feasible in the context of CDW streams?}
+  \item \textit{What does this imply in terms of requirements for data aggregation and storage?}
 \end{itemize}
+%
+The necessessary background, ranging from the relationship between CE and digitalization to the practicalities of the Finnish
+constrtuction industry, is explained in Chapter \ref{background}. Next, two distinct proof-of-concept models are developed (Chapter \ref{models}) and tested (Chapter \ref{results}).
+Furthermore, Chapter \ref{discussion} takes the model testing results as a basis and formulates suggestions on how the industry should go about aggregating, storing, and utilizing data to support
+its circular economy transition. Additionally, the use of data-driven strategies to accelerate this transition is further motivated by discussing the trade of non-virgin materials from the point
+of view of the market economy and potential business cases. As a conclusion, critical top-level remarks are summarized in Chapter \ref{conclusion}.
 
 \clearpage
 
 \section{Background} \label{background}
 
-% Contribution: 25\%
-% Order of work: 1/6
-
-This chapter establishes the reasoning behind the urgent need for a global transition towards a circular economy (CE) and describes the role digitalization plays in the process.
+This chapter establishes the reasoning behind the urgent need for a global transition towards a circular economy and describes the role digitalization plays in the process.
 It takes the Finnish construction industry as an example of this transition, and specifies the key challenges and opportunities of driving the change with data and digital solutions.
 
 \subsection{From linear to circular economies} \label{ce}
@@ -369,7 +431,7 @@ yielding annual benefits of up to €1,8 trillion by 2030.~\cite{macarthur}
 As Sitra states, technology is embedded in everything, and the transition to CE is, of course, no exception. The breathtaking pace digitalization
 has developed with during the last decades has presented us with countless possibilities and opportunities.
 
-A field that has seen rapid advances in the last decade alone, is Machine learning (ML). Being one of the most widespread modeling paradigms today, ML methods
+A field that has seen rapid advances in the last decade alone, is machine learning. Being one of the most widespread modeling paradigms today, ML methods
 have an impact on all of our lives, whether we want them to or not. Every digital device and transaction generates data, that is utilized in increasing amounts by ML models used to
 e.g. personalize services and recommendations, and optimize marketing and sales.
 
@@ -428,7 +490,7 @@ to a more circular operating model. The Finnish government has recently taken th
 they established a strategic programme \cite{gov} to pave the way towards a new Finnish economy based on CE by 2035. The programme dedicates a significant amount of focus on the
 construction industry, and specifies several action points to promote CE in its context, including financial incentives, digitalization and data management.
 
-From a CE point of view, one of the the main challenges in the Finnish construction industry is construction and demolition waste (CDW) management. Legislation and various costs seem to
+From a CE point of view, one of the the main challenges in the Finnish construction industry is construction and demolition waste management. Legislation and various costs seem to
 form a setting, where there is no clear and desirable way for the responsible party to handle CDW. On a demolition site, for example,
 the prime contractor owns all of the materials and waste (although the responsibility of demolition waste handling lies with the demolition contractor, if the demolition is outsourced
 by the prime contractor), and therefore is also responsible for processing all of the material streams released during demolition accordingly, including all related costs and taxes.
@@ -442,7 +504,8 @@ There are, however, significant challenges to overcome. Plenty of costs are embe
 outweigh the costs of disposing of this waste, which makes it less appealing for contractors to salvage it. This problem tends to have the effect of making virgin materials
 more attractive price-wise, which hinders the demand for reusable and recycled CDW, and makes adapting a more circular model difficult from the point of view of procurement as well.
 Not only that, but the whole paradigm of construction and most of its processes are built around using virgin materials; a buyer generally risks lower product quality when dealing with
-reused and recycled materials. This problematic is clearly a key obstacle, as it effects negatively both the supply and demand sides of the non-virgin construction material market.
+reused and recycled materials. In addition, companies working in the construction industry rarely have capabilities to deal with non-virgin materials and components.
+This problematic is clearly a key obstacle, as it effects negatively both the supply and demand sides of the non-virgin construction material market.
 This has also been recognized by the Finnish government, as it has recently set in motion investigation projects to e.g. identify
 ambiguities in construction product qualification procedures.~\cite{zhu} As an example result, the Finnish Ministry of the Environment released a policy brief~\cite{tahtinen} on verifying the
 feasability of reused materials in June 2022. It states that it is sufficient to check for feasability with construction site -specific verification, which means that a CE-marking is not
@@ -456,24 +519,25 @@ Finnish officials are working on a series of databases and registers that would 
 product charecteristics and material streams, to name a few. These systems are planned to come with diverse APIs to enable private entities to develop their own services and platforms to
 utilize all of the data stored in these public systems. The following section will introduce one such project, in which the author is also involved through his employment.
 
-\subsection{Motiva's data platform and ecosystem for material circulations} \label{motiva}
+\subsection{Motiva Services Ltd. and the ecosystem for material circulations} \label{motiva}
 
 In order to make the raw data from the existing and upcoming registers for construction materials and demolition waste available and usable to companies and
 consumers, it is vital that different services are developed to refine and process the data. Even though work on the state-wide registers is still in progress, the Finnish state-owned
-company Motiva Ltd. is already working on a platform for construction material circulation. Motiva is a company of experts specialized in providing organizations and consumers
-with information, solutions and services on how to use energy and materials more efficiently and sustainably. With this platform, it is Motiva's aim to build a hub that collects
+company Motiva, or more accurately, its subsidiary Motiva Services Ltd. is already working on an ecosystem and platform for construction material circulation. Motiva is a company of experts
+specialized in providing businesses and municipalities
+with information, solutions and services on how to use energy and materials more efficiently and sustainably. With this ecosystem and platform, it is Motiva Services' aim to build a hub that collects
 information from various sources under a single platform, acts as a meeting place for supply and demand of non-virgin construction materials and supports all relevant stakeholders in adapting to
 a more circular operating model in the construction industry.
 
-At the moment, this platform is still in the planning phase. Motiva has developed the concept for it, and it has been validated and further developed using two different projects as case studies.
-The first one is a demolition project that takes place in Vattuniemi, Helsinki, where 16 buildings are set to be demolished during 2022-23. The other site is located in the
+At the moment, this platform is still in the planning phase. Motiva Services has developed the concept for it, and it has been validated and further developed using two different projects as
+case studies. One is a demolition project that takes place in Vattuniemi, Helsinki, where 16 buildings are set to be demolished during 2022-23. The other site is located in the
 Tampere area, where especially the reuse and circulation of ashes as a construction product in infrastructure building was explored. The latter project ended in Spring 2022 for the time being.
-These projects are vital in gathering field experience on the challenges and requirements of material circulation. Specifically, Motiva seeks to pilot planned features of their platform,
+These projects are vital in gathering field experience on the challenges and requirements of material circulation. Specifically, Motiva Services seeks to pilot planned features of their platform,
 and to gain knowledge on how exactly predictive, data-driven demolition planning supports a circular economy.
 
 \subsection{The potential of pre-demolition audits} \label{pre_dem}
 
-A critical part of shifting towards predictive demolition planning are the procedures that guide the mapping of the demolition site. These include mapping of harmful, but also reusable
+A critical part of shifting towards predictive demolition planning are the procedures that guide the mapping of the demolition site. These include mapping of hazardous, but also reusable
 and recyclable materials that the building to be demolished consists of. Historically, only the mapping of asbestos and other harmful materials has been required by law, but nowadays it is increasingly
 common to do a broader material mapping. The most extensive mapping process is the pre-demolition audit (in Finnish "purkukartoitus"), which also includes, for example, reusable movables and
 recommendations on how to to reuse, recycle or dispose of the material streams released during demolition.~\cite{lehtonen} These audits are at the moment voluntary, but officials are constantly planning ways to
@@ -1006,10 +1070,7 @@ on this dataset, the Random forest is able to explain the data better than Bayes
 
 \clearpage
 
-\section{Discussion}
-
-% Contribution: 35\%
-% Order of work: 4/6
+\section{Discussion} \label{discussion}
 
 This chapter draws conclusions from the test results reported in Chapter \ref{results}, and expands on them, elaborating ways for the construction industry to utilize the full potential of its
 data in the transition towards a more circular economy.
@@ -1040,14 +1101,16 @@ As was established in section \ref{pre_dem}, there is not much to build on, when
 ground up, starting from the question of how to aggregate and store data; predictive modeling only becomes a viable tool when there is enough data to properly train and test the models.
 
 With public entities already working on ways to promote extensive pre-demolition audits, and this study showing that predictive modeling is possible even with minimal demolition material mappings,
-it is critical to also think about how these documents should be stored in order for them to be easily accessible and usable. The Finnish Ministry of the Environment has already set in motion a
-project to design and build a public register for CDW data. [LÄHDE?] Preliminary investigations for this register were completed in February 2022, and implementation is scheduled for 2023-24.
-This register is to serve as a general repository, where contractors and real estate owners submit material mappings and pre-demolition audits.
+it is critical to also think about how these documents should be stored in order for them to be easily accessible and usable. In an interview with the author, Senior Architect of The Finnish
+Ministry of the Environment Harri Hakaste stated that the ministry has already set in motion a
+project to design and build a public register for CDW data. Preliminary investigations for this register were completed in February 2022, and implementation is scheduled for 2023-24
+(Personal communication, October 20, 2022).
+A feasible action point would be to have this register serve as a general repository, where contractors and real estate owners submit material mappings and pre-demolition audits.
 
 Up to this point, we have knowingly disregarded a crucial aspect of our data. The PoC models in Chapter \ref{models} were trained and tested on data based on pre-demolition estimates
 only. This is, of course, suboptimal. After all, the aim is to predict actual, realized material streams instead of estimates. Data on realized CDW amounts in demolition projects is currently
 even less available than pre-demolition audits. Therefore, it is crucial that the entities carrying out demolition projects submit detailed reports on actuals, as well as pre-demolition estimates.
-The preivously mentionend public CDW data register would serve as a logical place to store those reports as well.
+The previously mentionend public CDW data register would serve as a logical place to store those reports as well.
 
 Considering the data even more closely, it is worth to also question what goes into the pre-demolition audits and actuals. Recalling that one of the most significant obstacles hindering CE in the
 construction industry is the lack of temporal alignment of demand and supply in the non-virgin material market, it is noteworthy that a temporal aspect in CDW data is currently absent
@@ -1061,20 +1124,33 @@ Compared to demolition data, the features, i.e. basic knowledge of target buildi
 from which anybody can access building data through REST APIs. On the other hand, due to a lack in documentation especially on the older side of the Finnish real estate base, the data is often
 incomplete. It is also crucial not to forget that the structures of buildings change during their lifetime due to e.g. renovations. According to experts, it often happens (less today than a
 few decades ago) that these changes are not properly documented and the data in the real estate register updated, which then leads to the risk of using incorrect data in the pre-demolition audit.
-Therefore, these changes have to be documented the same as during construction in order to preserve actual information on the building. All in all, it is crucial to uphold good quality standards
+Therefore, these changes have to be documented with the same care as during construction in order to preserve actual information on the building. All in all, it is crucial to uphold good quality standards
 in documentation and reporting during the whole building life cycle in order to ensure accurate data.
 
 \subsection{New opportunities}
 
-The CE transition tends to have the effect of inducing numerous business cases, that in turn create opportunities for existing businesses and startups alike. In the case of the construction industry,
+The CE transition tends to have the effect of inducing business cases, that in turn create opportunities for existing businesses and startups alike. In the case of the construction industry,
 this transition will create opportunities in the field for example for recycling operators, demolition contractors specialized in non-destructive demolition and recycling, and specialized retailers
 that, for example, acquire materials from demolition sites for refinement and reselling.
 
-Assuming a different point of view, new possibilities present themselves in the area of data and analytics, as well. The platform project of Motiva (\ref{motiva}) is a concrete example of how these
-possibilities can be utilized. Provided that data aggregation standards develop in the way suggested in \ref{aggregation}, Motiva, in addition to other possible platforms and services, will have
+Assuming a different point of view, new possibilities present themselves in the area of data and analytics, as well. The platform project of Motiva Services (\ref{motiva}) is a concrete example of how these
+possibilities can be utilized. Provided that data aggregation standards develop in the way suggested in \ref{aggregation}, Motiva Services, in addition to other possible platforms and services, will have
 the opportunity to plug into different public registers and databases, combining demolition, real estate, and other data sources to create new insights and value. Possibilities include news and
 information sharing in the CE field, refining CDW data by combining it with e.g. material attributes and data about their environmental impact, modifying pre-demolition audits, post-demolition
 reports and other documents into directly usable data, and all the countless modeling and analytics services these data sources enable.
+
+This potential also gives rise to the idea of the
+value of data. Without diving any deeper into the topic of data value, it is definitely an aspect the organizations governing these data should keep in mind. How this value is realized in the end,
+depends on the nature and purpose of these organizations. Possibilities include monetization strategies, for example, although these in turn depend strongly on the data sharing architectures
+implemented on top of the registers and data storages. The bottom line is, data should be treated as an asset that businesses are willing to invest into in order to refine it, and thus increase
+its value.
+
+At the moment, most of the potential business value in predicting material streams is based on the cost cases for demolition contractors and real estate owners. Nevertheless, there are already early
+signs of developing business cases as well. Emerging technologies make it possible to recycle an increasing variety of CDW. For instance, the Danish company ReTec has been among the first to
+develop capabilities to recycle mineral wool. Moreover, steel production, being one of the most significant sources of GHG emissions globally, has been able to recycle scrap metal for some time
+already. The Swedish steel manufacturer SSAB states on their website that scrap manages to cover only 25-30\% of the production's demand. With companies like SSAB striving to reduce their environmental
+impact drastically, it is safe to assume that a demand already exists for all scrap metal that is managed to salvage form CDW streams. And with rising demand for different materials found in CDW,
+waste handlers are able to place increasing prices on them.
 
 \subsection{Further research topics: what should be prioritized?}
 
@@ -1092,7 +1168,7 @@ A challenge, on the other hand, is that often pre-demolition audits are carried 
 turn means that the starting time of the demolition project is likely to be unknown during the audit. However, the temporal distributions can always be given relative to the starting time of the
 demolition project, that is, time points can be given as days after start, rather than strict dates. The dates can then be immediately calculated when the starting date is set.
 
-\subsubsection{Feature engineering and sensitivity analysis}
+\subsubsection{Feature selection and sensitivity analysis}
 
 The question of feature significance was conciously left out of the scope of this thesis, mainly due to the lack of data. It is an extremely important area to explore further, though. The PoC models
 showed that predicting only the amounts of CDW should not require many features. This could potentially not be the case when predicting the temporal CDW distributions, or the amounts of reusable
@@ -1114,11 +1190,29 @@ building contains, instead of them having to go in blind and providing the deman
 
 \clearpage
 
-\section{Conclusions}
+\section{Conclusion} \label{conclusion}
 
-% Contribution: 5\%
-% Order of work: 5/6
+Finding ways to align supply and demand of non-virgin construction materials is an integral part of the transition towards a moren circular economy that is happening in the construction industry.
+Being able to grow the window of opportunity to capture reusable and recyclable CDW as it is released, so that demolition contractors avoid storage or waste processing costs, is one of the key
+challenges to solve in this transition. It is a challenge that cannot be overcome without utilizing the full potential of data.
 
+This thesis has shown that ML-based predictive modeling is a feasible approach to estimate CDW streams released during demolition - as long as there is enough quality data available. The PoC models
+have only scratched the surface of what is possible in terms of predictive modeling. Many critical problems, such as the temporal distribution of CDW streams, await solving as soon as the amount
+of available data is sufficient. Therefore it is crucial that data in general - how to aggregate, store, share, and utilize it - is an aspect the construction industry starts including in all of
+its processes and capabilities. From the point of view of this thesis, it starts with standards for pre-demolition audit and demolition reporting, and the storage of those reports, but then extends
+across the whole industry. Every process generates data; it is up to the stakeholders to decide which pieces of information to capture and store.
+
+Purely from a market economy point of view, the market for CDW and other non-virgin construction materials is only starting to develop. Highly profitable business cases are not yet driving the
+shift towards CE, but it is rather the potential cost savings that motivate e.g. demolition contractors to look for alternatives to storing or disposing of CDW. The focus of this thesis has been
+on the supply side, but in order to transition on a more holistic scale, the "other side of the loop", i.e. the demand, has to develop at the same time. Practically this implies a thorough
+paradigm shift in the construction industry, where all stakeholders in new construction have a common understanding of how to design and construct new buildings using as much non-virgin materials
+as possible. This shift, boosting the demand side, is likely to be a decisive force in inducing the business cases that will crucially accelerate the CE transition.
+
+It remains an unanswered question, whether this shift will happen on its own, be it due to a critical mass of individuals and organizations taking the initiative to drive the transition, or some
+other phenomenon. It is, nevertheless, certain that during the course of the next several years, legislation and regulation on an EU and local level will develop a combination of
+"carrots and sticks" that will finally force the transition. In the end, it is up to every company and stakeholder in the industry to decide for themselves, how painful the transition will
+be. It can be deemed safe to say that failing to capture and utilize data to its full extent is likely to have dire consequences - while those, who have taken the initiative rather sooner
+than later to build their data competence and readiness, thrive.
 
 \clearpage
 
